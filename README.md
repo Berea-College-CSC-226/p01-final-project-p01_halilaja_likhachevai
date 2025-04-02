@@ -5,9 +5,9 @@
 ❗️Exclamation Marks ❗️indicate action items; you should remove these emoji as you complete/update the items which 
   they accompany. (This means that your final README should have no ❗️in it!)
 
-**Author(s)**: Iuliia Likhacheva, Arbjosa Halilaj
+❗️**Author(s)**: Your name(s) here
 
-**Google Doc Link**: https://docs.google.com/document/d/1qB5qFWes-QNh39mKJGSB9EgU-3r2Za-wbCuPmnUEMgg/edit?usp=sharing
+❗️**Google Doc Link**: Your link here
 
 ---
 
@@ -26,6 +26,19 @@
   - Tables in markdown are not easy, so we suggest saving your CRC card as an image and including the image(s) in the 
     README. You can do this by saving an image in the repository and linking to it. See the sample CRC card below - 
     and REPLACE it with your own:
+  
+![Don't leave me in your README!](image/crc.png "Image of CRC card as an example. Upload your CRC card(s) in place of this one. ")
+
+❗️**Branches**: This project will **require** effective use of git. 
+
+Each partner should create a branch at the beginning of the project, and stay on this branch (or branches of their 
+branch) as they work. When you need to bring each others branches together, do so by merging each other's branches 
+into your own, following the process we've discussed in previous assignments, then re-branching out from the merged code.  
+
+```
+    Branch 1 starting name: _____________
+    Branch 2 starting name: _____________
+```
   
 ![Don't leave me in your README!](image/crc.png "Image of CRC card as an example. Upload your CRC card(s) in place of this one. ")
 
