@@ -1,13 +1,13 @@
-# ❗CSC226 Final Project
+# CSC226 Final Project
 
 ## Instructions
 
 ❗️Exclamation Marks ❗️indicate action items; you should remove these emoji as you complete/update the items which 
   they accompany. (This means that your final README should have no ❗️in it!)
 
-❗️**Author(s)**: Your name(s) here
+**Author(s)**: Iuliia Likhacheva, Arbjosa Halilaj
 
-❗️**Google Doc Link**: Your link here
+**Google Doc Link**: https://docs.google.com/document/d/1qB5qFWes-QNh39mKJGSB9EgU-3r2Za-wbCuPmnUEMgg/edit?usp=sharing
 
 ---
 
@@ -36,8 +36,8 @@ branch) as they work. When you need to bring each others branches together, do s
 into your own, following the process we've discussed in previous assignments, then re-branching out from the merged code.  
 
 ```
-    Branch 1 starting name: _____________
-    Branch 2 starting name: _____________
+    Branch 1 starting name: p01_final_project_likhachevai
+    Branch 2 starting name: p01_final_project_halilaja
 ```
 
 ### References 
