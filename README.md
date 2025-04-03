@@ -27,7 +27,14 @@
     README. You can do this by saving an image in the repository and linking to it. See the sample CRC card below - 
     and REPLACE it with your own:
   
-![Don't leave me in your README!](image/crc.png "Image of CRC card as an example. Upload your CRC card(s) in place of this one. ")
+ [Navigator class](image/crc1.png)
+
+ [Maze class](image/crc2.png)
+
+ [Maze Drawer class](image/crc3.png)
+
+ [Maze GUI class](image/crc4.png)
+
 
 **Branches**: This project will **require** effective use of git. 
 
