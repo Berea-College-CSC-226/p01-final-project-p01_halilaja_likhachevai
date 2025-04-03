@@ -19,7 +19,7 @@
 
 **Source Assignment(s)**: `T02 - exploring Turtles, T03 - Boustrophedon Turtles, T10 - Intro to Classes, T11 - The Legend of Tuna: Breath of Catnip`
 
-❗️**CRC Card(s)**:
+**CRC Card(s)**:
   - Create a CRC card for each class that your project will implement.
   - See this link for a sample CRC card and a template to use for your own cards (you will have to make a copy to edit):
     [CRC Card Example](https://docs.google.com/document/d/1JE_3Qmytk_JGztRqkPXWACJwciPH61VCx3idIlBCVFY/edit?usp=sharing)
@@ -53,6 +53,9 @@ Throughout this project, you will likely use outside resources. Reference all id
 and describe how you integrated the ideas or code into your program. This includes online sources, people who have 
 helped you, AI tools you've used, and any other resources that are not solely your own contribution. Update this 
 section as you go. DO NOT forget about it!
+
+
+https://sites.google.com/site/advancedpythonprogramming/recursion/exploring-a-maze
 
 ---
 
