@@ -48,7 +48,11 @@ Reflect on what you’ve done so far. How’s it going? Are you feeling behind/a
 What has surprised you so far? Describe your general feelings. Be honest with yourself; this section is for you, not me.
 
 ```
-    **Replace this text with your reflection
+    Everything is going very well right now. The most important thing is that we figured out the structure of our code and have actually started writing it.
+    We’ve already created the necessary classes and functions. What surprises us the most is how much simple documentation and planning helped us understand the project better.
+    It turned out to be very useful to write CRC cards first and then write code based on them, since you can clearly see which classes, methods, and attributes you need.
+    However, we are a bit worried about time—there’s still a lot to do, and we don’t want to rush through the difficult parts at the last minute.
+    We also want to make sure that the code we’re writing makes sense and is readable.
 ```
 
 ---
