@@ -18,13 +18,13 @@
 
 **CRC Card(s)**:
   
- [Navigator class](image/crc1.png)
+ ![Navigator class](image/crc1.png)
 
- [Maze class](image/crc2.png)
+ ![Maze class](image/crc2.png)
 
- [Maze Drawer class](image/crc3.png)
+ ![Maze Drawer class](image/crc3.png)
 
- [Maze GUI class](image/crc4.png)
+ ![Maze GUI class](image/crc4.png)
 
 
 **Branches**:
