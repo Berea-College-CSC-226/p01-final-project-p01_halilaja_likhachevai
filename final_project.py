@@ -177,6 +177,7 @@ class MazeDrawer:
         :param y: new y-coordinate in the maze grid.
         :return:
         """
+        pass
 
 class MazeGUI:
     def __init__(self):
