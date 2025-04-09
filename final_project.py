@@ -2,13 +2,13 @@
 # Author: Arbjosa Halilaj, Iuliia Likhacheva
 # Username: halilaja, likhachevai
 #
-# PO1
+# Assignment: P01: Final Project
 #
 # Purpose: To generate random mazes using the Turtle library with the timer and allow the user to solve it interactively using keyboard controls.
 #
 #######################################################################
 # Acknowledgements:
-####################################################################################
+#######################################################################
 
 import time
 import turtle
