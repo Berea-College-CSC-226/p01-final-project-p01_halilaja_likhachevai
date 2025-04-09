@@ -40,11 +40,16 @@ def test_suite():
     except:
         unittest(False)
 
-    # Test the user_set() function
-    print("Testing user_set()")
+    # Test the user_set() function (skipping because it requires user input)
+    print("Testing user_set() - skipped (requires input)")
 
-    # Test the draw_point() function
+    # Test the draw_point() function (basic attribute test)
     print("Testing draw_point()")
+    try:
+        p1.draw_point()
+        unittest(p1.turtle is not None)
+    except:
+        unittest(False)
 
     # Test the move_forward() function
     print("Testing move_forward()")
