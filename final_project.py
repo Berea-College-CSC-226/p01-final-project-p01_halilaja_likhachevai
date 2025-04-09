@@ -144,3 +144,68 @@ class Maze:
         Args: difficulty (int): An integer indicating the desired complexity of the maze.
         """
         pass
+
+class MazeDrawer:
+    def __init__(self, maze):
+        """
+        Initializes the MazeDrawer with a reference to the maze object.
+
+        :param maze (Maze): The maze object containing the grid to draw.
+        """
+        self.maze = maze
+        self.turtle = None      #turtle object to draw maze
+        self.cell_size = 20     #size of each cell in pixels
+
+    def draw_maze(self):
+        """
+        Uses the turtle graphics module to draw the maze layout including walls and paths.
+        """
+        pass
+
+    def draw_navigator(self, x, y):
+        """
+        Draws the navigator's starting position in the maze.
+        :param x: x-coordinate in the maze grid.
+        :param y: y-coordinate in the maze grid.
+        """
+        pass
+
+    def update_position(self, x, y):
+        """
+        Moves the navigator to a new position in the maze.
+        :param x: new x-coordinate in the maze grid.
+        :param y: new y-coordinate in the maze grid.
+        :return:
+        """
+
+class MazeGUI:
+    def __init__(self):
+        """
+        Initializes the GUI window, timer, and related components for maze interaction.
+        """
+        self.window = None      #tkinter window instance
+        self.difficulty = None  #selected difficulty level
+        self.timer = None       #timer label
+        self.navigator = None   #navigator object
+        self.maze = None        #maze object
+
+    def select_difficulty(self, level):
+        """
+        Sets the selected difficulty level and triggers maze generation.
+
+        Args:
+            level (str): Chosen difficulty level ("Easy", "Medium", or "Hard").
+        """
+        pass
+
+    def start_timer(self):
+        """
+        Starts the timer to track how long the user takes to solve the maze.
+        """
+        pass
+
+    def run(self):
+        """
+        Runs the Tkinter mainloop to display and maintain the GUI.
+        """
+        pass
