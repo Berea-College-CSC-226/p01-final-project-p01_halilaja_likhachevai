@@ -22,9 +22,9 @@ class Point:
         Args: x (float, optional): The x-coordinate. Defaults to 0.
               y (float, optional): The y-coordinate. Defaults to 0.
         """
-        self.x = x
-        self.y = y
-        self.turtle = None
+        self.x = x #instance variable which holds the x value
+        self.y = y #instance variable which holds the y value
+        self.turtle = None #instance variable which is initially set to None until draw_point() is called.
 
     def __str__(self):
         """
@@ -57,7 +57,7 @@ class Point:
 
 
 class Navigator:
-    def __init__(self, maze, start_x, start_y):
+    def __init__(self, maze, x=0, y=0, direction=''):
         """
         Initializes the Navigator with a starting position and a reference to the maze.
 
@@ -65,7 +65,11 @@ class Navigator:
               start_x (int): The starting x-coordinate.
               start_y (int): The starting y-coordinate.
         """
-        pass
+        self.x = x #instance variable which holds the x coordinate
+        self.y = y #instance variable which holds the y coordinate
+        self.direction = direction #instance variable for current facing direction
+        self.maze = maze #instance variable that holds reference to Maze
+        self.timer_start = None #timestamp when navigator begins
 
     def move_forward(self):
         """
@@ -108,7 +112,10 @@ class Maze:
 
         Args: grid: A 2D list representing the maze structure.
         """
-        pass
+        self.grid = grid #2D list representing the maze layout
+        self.start = None #starting position
+        self.goal = None #goal position
+        self.difficulty = None #current difficulty level
 
     def is_path(self, x, y):
         """
