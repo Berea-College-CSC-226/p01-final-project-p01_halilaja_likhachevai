@@ -13,6 +13,7 @@
 
 from final_project import *
 from inspect import getframeinfo, stack
+import math
 
 
 def unittest(did_pass):
@@ -32,6 +33,12 @@ def unittest(did_pass):
 def test_suite():
     # Test the distance_from_origin() function
     print("Testing distance_from_origin()")
+    p1 = Point(3,4)
+    try:
+        result = p1.distance_from_origin()
+        unittest(math.isclose(result, 5.0))
+    except:
+        unittest(False)
 
     # Test the user_set() function
     print("Testing user_set()")
