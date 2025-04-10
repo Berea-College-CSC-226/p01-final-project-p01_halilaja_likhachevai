@@ -65,6 +65,11 @@ def test_suite():
 
     # Test the get_time_elapsed() function
     print("Testing get_time_elapsed()")
+    nav = Navigator(Maze())
+    elapsed1 = nav.get_time_elapsed()
+    time.sleep(0.1)
+    elapsed2 = nav.get_time_elapsed()
+    unittest(elapsed2 >= elapsed1)
 
     # Test the is_path() function
     print("Testing is_path()")

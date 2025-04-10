@@ -109,7 +109,7 @@ class Navigator:
         return time.time() - self.timer_start
 
 class Maze:
-    def __init__(self, grid):
+    def __init__(self, grid=None):
         """
         Initializes the Maze with a given grid layout.
 
