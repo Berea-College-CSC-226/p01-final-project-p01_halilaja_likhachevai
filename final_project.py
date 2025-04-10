@@ -40,7 +40,7 @@ class Point:
 
         Returns: float: The distance from the origin.
         """
-        pass
+        return math.sqrt(self.x ** 2 + self.y ** 2)
 
     def user_set(self):
         """
