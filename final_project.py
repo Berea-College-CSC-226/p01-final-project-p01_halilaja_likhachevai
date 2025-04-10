@@ -57,7 +57,7 @@ class Point:
 
 
 class Navigator:
-    def __init__(self, maze, x=0, y=0, direction=''):
+    def __init__(self, maze, x=0, y=0, direction='N'):
         """
         Initializes the Navigator with a starting position and a reference to the maze.
 
@@ -103,7 +103,10 @@ class Navigator:
 
         Returns: float: Time in seconds since navigation started.
         """
-        pass
+        if self.timer_start is None:
+            self.timer_start = time.time()
+            return 0
+        return time.time() - self.timer_start
 
 class Maze:
     def __init__(self, grid):
