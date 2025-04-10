@@ -112,9 +112,9 @@ class Maze:
 
         Args: grid: A 2D list representing the maze structure.
         """
-        self.grid = grid #2D list representing the maze layout
-        self.start = None #starting position
-        self.goal = None #goal position
+        self.grid = grid if grid else [[0, 1], [1, 0]] #2D list representing the maze layout
+        self.start = (0, 0) #starting position
+        self.goal = (1, 1) #goal position
         self.difficulty = None #current difficulty level
 
     def is_path(self, x, y):
