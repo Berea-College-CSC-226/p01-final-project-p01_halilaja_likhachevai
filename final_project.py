@@ -196,6 +196,9 @@ class MazeGUI:
         Initializes the GUI window, timer, and related components for maze interaction.
         """
         self.window = tk.Tk()      #tkinter window instance
+        self.window.title("Maze Game - Select Difficulty")
+        self.window.geometry("300X200")
+        self.window.resizable(False, False)
         self.difficulty = None  #selected difficulty level
         self.timer = None       #timer label
         self.navigator = None   #navigator object
