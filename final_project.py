@@ -204,16 +204,23 @@ class MazeGUI:
         self.navigator = None   #navigator object
         self.maze = None        #maze object
 
-    def select_difficulty(self, level):
+    def select_difficulty(self):
         """
         Sets the selected difficulty level and triggers maze generation.
 
         Args:
             level (str): Chosen difficulty level ("Easy", "Medium", or "Hard").
         """
-        label = tk.Label(self.window, text = "Choose a difficulty level", font = ("Arial", 14))
+        def set_difficulty(level):
+            self.difficulty = level
+            self.window.destroy()
+
+        label = tk.Label(self.window, text= "Choose a difficulty level", font= ("Arial", 14))
         label.pack(pady=20)
 
+        easy_button = tk.Button(self.window, text= "Easy", width= 15,command= lambda: set_difficulty("Easy"))
+        medium_button = tk.Button(self.window, text= "Medium", width= 15, command= lambda: set_difficulty("Medium"))
+        hard_button = tk.Button(self.window, text= "Hard", width= 15, command= lambda: set_difficulty("Hard"))
 
     def start_timer(self):
         """
