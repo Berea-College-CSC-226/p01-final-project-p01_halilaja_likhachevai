@@ -195,25 +195,29 @@ class MazeGUI:
         """
         Initializes the GUI window, timer, and related components for maze interaction.
         """
-        self.window = tk.Tk()      #tkinter window instance
-        self.window.title("Maze Game - Select Difficulty")
-        self.window.geometry("300X200")
-        self.window.resizable(False, False)
+        self.window = None      #will be initialized in select_difficulty
         self.difficulty = None  #selected difficulty level
-        self.timer = None       #timer label
+        self.timer = None       #timer label (not used yet)
         self.navigator = None   #navigator object
         self.maze = None        #maze object
 
+    def set_difficulty(self, level):
+        """
+        Callback function to store the selected difficulty and close the window.
+        :param level (str): Chosen difficulty level ("Easy", "Medium", or "Hard").
+        :return:
+        """
+        self.difficulty = level
+        self.window.destroy()
+
     def select_difficulty(self):
         """
-        Sets the selected difficulty level and triggers maze generation.
-
-        Args:
-            level (str): Chosen difficulty level ("Easy", "Medium", or "Hard").
+        Displays a GUI window allowing the user to choose the maze difficulty.
         """
-        def set_difficulty(level):
-            self.difficulty = level
-            self.window.destroy()
+        self.window = tk.Tk()
+        self.window.title("Maze Game - Select Difficulty")
+        self.window.geometry("300x200")
+        self.window.resizable(False, False)
 
         label = tk.Label(self.window, text= "Choose a difficulty level", font= ("Arial", 14))
         label.pack(pady=20)
