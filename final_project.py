@@ -13,6 +13,7 @@
 import time
 import turtle
 import math
+import tkinter as tk
 
 class Point:
     def __init__(self, x=0, y=0):
@@ -194,7 +195,7 @@ class MazeGUI:
         """
         Initializes the GUI window, timer, and related components for maze interaction.
         """
-        self.window = None      #tkinter window instance
+        self.window = tk.Tk()      #tkinter window instance
         self.difficulty = None  #selected difficulty level
         self.timer = None       #timer label
         self.navigator = None   #navigator object
