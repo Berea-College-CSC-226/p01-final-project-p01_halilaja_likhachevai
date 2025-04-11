@@ -226,6 +226,7 @@ class MazeGUI:
         medium_button.pack(pady=5)
         hard_button.pack(pady=5)
 
+        self.window.mainloop()
 
     def start_timer(self):
         """
