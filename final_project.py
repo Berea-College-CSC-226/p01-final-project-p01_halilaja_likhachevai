@@ -207,30 +207,30 @@ class MazeGUI:
         :param level: Chosen difficulty level ("Easy", "Medium", or "Hard").
         :return:
         """
-        self.difficulty = level
-        self.window.destroy()
+        self.difficulty = level #I.D.1
+        self.window.destroy()   #I.D.2
 
     def select_difficulty(self):
         """
         Displays a GUI window allowing the user to choose the maze difficulty.
         """
-        self.window = tk.Tk()
-        self.window.title("Maze Game - Select Difficulty")
+        self.window = tk.Tk()                               #I.A.1
+        self.window.title("Maze Game - Select Difficulty")  #I.A.2
         self.window.geometry("300x200")
         self.window.resizable(False, False)
 
-        label = tk.Label(self.window, text= "Choose a difficulty level", font= ("Arial", 14))
+        label = tk.Label(self.window, text= "Choose a difficulty level", font= ("Arial", 14))   #I.A.3
         label.pack(pady=20)
 
-        easy_button = tk.Button(self.window, text= "Easy", width= 15,command= lambda: set_difficulty("Easy"))
-        medium_button = tk.Button(self.window, text= "Medium", width= 15, command= lambda: set_difficulty("Medium"))
-        hard_button = tk.Button(self.window, text= "Hard", width= 15, command= lambda: set_difficulty("Hard"))
+        easy_button = tk.Button(self.window, text= "Easy", width= 15,command= lambda: self.set_difficulty("Easy"))   #I.B.1/2
+        medium_button = tk.Button(self.window, text= "Medium", width= 15, command= lambda: self.set_difficulty("Medium"))
+        hard_button = tk.Button(self.window, text= "Hard", width= 15, command= lambda: self.set_difficulty("Hard"))
 
-        easy_button.pack(pady=5)
+        easy_button.pack(pady=5)    #I.B.3
         medium_button.pack(pady=5)
         hard_button.pack(pady=5)
 
-        self.window.mainloop()
+        self.window.mainloop()  #I.C.1/2
 
     def start_timer(self):
         """
