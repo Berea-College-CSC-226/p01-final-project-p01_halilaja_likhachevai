@@ -204,7 +204,7 @@ class MazeGUI:
     def set_difficulty(self, level):
         """
         Callback function to store the selected difficulty and close the window.
-        :param level (str): Chosen difficulty level ("Easy", "Medium", or "Hard").
+        :param level: Chosen difficulty level ("Easy", "Medium", or "Hard").
         :return:
         """
         self.difficulty = level
