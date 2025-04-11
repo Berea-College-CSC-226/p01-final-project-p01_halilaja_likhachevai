@@ -243,3 +243,8 @@ class MazeGUI:
         Runs the Tkinter mainloop to display and maintain the GUI.
         """
         pass
+
+if __name__ == "__main__":
+    gui = MazeGUI()
+    gui.select_difficulty()
+    print(f"You selected: {gui.difficulty}")
