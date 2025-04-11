@@ -215,7 +215,7 @@ class MazeGUI:
         Displays a GUI window allowing the user to choose the maze difficulty.
         """
         self.window = tk.Tk()                               #I.A.1
-        self.window.title("Maze Game - Select Difficulty")  #I.A.2
+        self.window.title("Turtle Escape - Select Difficulty")  #I.A.2
         self.window.geometry("300x200")
         self.window.resizable(False, False)
 
