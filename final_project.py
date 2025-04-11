@@ -201,6 +201,32 @@ class MazeGUI:
         self.navigator = None   #navigator object
         self.maze = None        #maze object
 
+    def show_welcome_window(self):
+        """
+        Displays a welcome window before selecting difficulty.
+        """
+        welcome = tk.Tk()
+        welcome.title("Welcome to Turtle Escape")
+        welcome.geometry("350x250")
+        welcome.resizable(False, False)
+
+        label = tk.Label(welcome, text="🐢 Welcome to Turtle Escape! 🐢", font=("Arial", 14))
+        label.pack(pady=15)
+
+        instructions = tk.Label(
+            welcome,
+            text="Navigate the turtle through the maze.\nLet's begin your adventure!",
+            font=("Arial", 15),
+            justify="center"
+        )
+        instructions.pack(pady=5)
+
+        start_button = tk.Button(welcome, text="Start", command=welcome.destroy)
+        start_button.pack(pady=10)
+
+        welcome.mainloop()
+
+
     def set_difficulty(self, level):
         """
         Callback function to store the selected difficulty and close the window.
@@ -210,11 +236,24 @@ class MazeGUI:
         self.difficulty = level #I.D.1
         self.window.destroy()   #I.D.2
 
+        # Create a new window to display the selection
+        result_window = tk.Tk()
+        result_window.title("Selection")
+        result_window.geometry("300x100")
+
+        result_label = tk.Label(result_window, text=f"You selected: {self.difficulty}", font=("Arial", 14))
+        result_label.pack(pady=20)
+
+        ok_button = tk.Button(result_window, text="OK", command=result_window.destroy)
+        ok_button.pack(pady=5)
+
+        result_window.mainloop()
+
     def select_difficulty(self):
         """
         Displays a GUI window allowing the user to choose the maze difficulty.
         """
-        self.window = tk.Tk()                               #I.A.1
+        self.window = tk.Tk()                                   #I.A.1
         self.window.title("Turtle Escape - Select Difficulty")  #I.A.2
         self.window.geometry("300x200")
         self.window.resizable(False, False)
@@ -246,5 +285,5 @@ class MazeGUI:
 
 if __name__ == "__main__":
     gui = MazeGUI()
+    gui.show_welcome_window()
     gui.select_difficulty()
-    print(f"You selected: {gui.difficulty}")
