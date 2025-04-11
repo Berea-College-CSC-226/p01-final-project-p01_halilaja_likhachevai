@@ -222,6 +222,11 @@ class MazeGUI:
         medium_button = tk.Button(self.window, text= "Medium", width= 15, command= lambda: set_difficulty("Medium"))
         hard_button = tk.Button(self.window, text= "Hard", width= 15, command= lambda: set_difficulty("Hard"))
 
+        easy_button.pack(pady=5)
+        medium_button.pack(pady=5)
+        hard_button.pack(pady=5)
+
+
     def start_timer(self):
         """
         Starts the timer to track how long the user takes to solve the maze.
