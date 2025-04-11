@@ -211,7 +211,9 @@ class MazeGUI:
         Args:
             level (str): Chosen difficulty level ("Easy", "Medium", or "Hard").
         """
-        pass
+        label = tk.Label(self.window, text = "Choose a difficulty level", font = ("Arial", 14))
+        label.pack(pady=20)
+
 
     def start_timer(self):
         """
