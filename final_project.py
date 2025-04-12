@@ -217,9 +217,10 @@ class MazeDrawer:
         turtle.hideturtle()
         turtle.penup()
 
-
-        # Calculate the top-left starting coordinates for the maze, so it is centered on the screen
+        # Center maze horizontally: move left by half its width in pixels
         start_x = -len(self.maze.grid[0]) * self.cell_size // 2
+
+        # Center maze vertically: move down by half its height in pixels
         start_y = len(self.maze.grid) * self.cell_size // 2
 
 
