@@ -14,6 +14,8 @@ import time
 import turtle
 import math
 import tkinter as tk
+import random
+
 
 class Point:
     def __init__(self, x=0, y=0):
@@ -138,7 +140,7 @@ class Maze:
 
         Returns: tuple[int, int]: The (x, y) coordinates of the starting position.
         """
-        pass
+        return self.start
 
     def get_goal(self):
         """
@@ -146,7 +148,7 @@ class Maze:
 
         Returns: tuple[int, int]: The (x, y) coordinates of the goal position.
         """
-        pass
+        return self.goal
 
     def generate_maze(self, difficulty):
         """
@@ -154,7 +156,46 @@ class Maze:
 
         Args: difficulty (int): An integer indicating the desired complexity of the maze.
         """
-        pass
+
+        # Map difficulty levels to grid sizes
+        size_map = {"Easy": 10, "Medium": 20, "Hard": 30}
+
+        # Get size based on selected difficulty
+        size = size_map.get(difficulty)
+
+        self.grid = [] # Create an empty grid
+        for i in range(size):
+            row = [] # Create an empty row
+            for j in range(size):
+                row.append('#') # Add a wall to the row
+            self.grid.append(row) # Add the row to the grid
+
+
+        # Loop through only odd coordinates (skip every second cell to leave space for walls between paths)
+        for y in range(1, size, 2):
+            for x in range(1, size, 2):
+                self.grid[y][x] = ' ' # Make the cell a path
+
+                directions = []
+                if x > 1:
+                    directions.append((-1, 0))  # Option to carve west
+                if y > 1:
+                    directions.append((0, -1))  # Option to carve north
+
+
+                # If at least one direction is valid, carve a passage
+                if directions:
+                    dx, dy = random.choice(directions)
+                    self.grid[y + dy][x + dx] = ' ' # Remove wall between current and chosen cell
+
+        self.start = (1, 1) # Start
+        self.goal = (size - 2, size - 2) # Goal
+
+        # Mark start and goal in the grid for drawing later
+        self.grid[self.start[1]][self.start[0]] = 'S'
+        self.grid[self.goal[1]][self.goal[0]] = 'G'
+
+        self.difficulty = difficulty
 
 class MazeDrawer:
     def __init__(self, maze):
@@ -171,7 +212,44 @@ class MazeDrawer:
         """
         Uses the turtle graphics module to draw the maze layout including walls and paths.
         """
-        pass
+        turtle.clearscreen()
+        turtle.speed(0.1)
+        turtle.hideturtle()
+        turtle.penup()
+
+
+        # Calculate the top-left starting coordinates for the maze, so it is centered on the screen
+        start_x = -len(self.maze.grid[0]) * self.cell_size // 2
+        start_y = len(self.maze.grid) * self.cell_size // 2
+
+
+        # Loop over every row and cell in the 2D maze grid
+        for y, row in enumerate(self.maze.grid): # enumerate helps to loop through a list while also keeping track of the index.
+            for x, cell in enumerate(row):
+                # Convert grid coordinates to screen (pixel) coordinates
+                screen_x = start_x + x * self.cell_size
+                screen_y = start_y - y * self.cell_size
+
+                turtle.goto(screen_x, screen_y) # Move turtle to the top-left corner of the cell
+
+                if cell == '#':
+                    turtle.fillcolor("black") # Wall
+                elif cell == ' ':
+                    turtle.fillcolor("white") # Path
+                elif cell == 'S':
+                    turtle.fillcolor("green") # Start
+                elif cell == 'G':
+                    turtle.fillcolor("red") # Goal
+
+                turtle.begin_fill()
+                for i in range(4): # Draws a square
+                    turtle.pendown()
+                    turtle.forward(self.cell_size)
+                    turtle.right(90)
+                turtle.end_fill()
+                turtle.penup()
+
+        turtle.done()
 
     def draw_navigator(self, x, y):
         """
@@ -215,13 +293,13 @@ class MazeGUI:
 
         instructions = tk.Label(
             welcome,
-            text="Navigate the turtle through the maze.\nLet's begin your adventure!",
-            font=("Arial", 15),
+            text="Navigate the turtle through the maze.\n Let's begin the adventure!",
+            font=("Arial", 10),
             justify="center"
         )
         instructions.pack(pady=5)
 
-        start_button = tk.Button(welcome, text="Start", command=welcome.destroy)
+        start_button = tk.Button(welcome, text="Start Game", command=welcome.destroy)
         start_button.pack(pady=10)
 
         welcome.mainloop()
@@ -281,9 +359,15 @@ class MazeGUI:
         """
         Runs the Tkinter mainloop to display and maintain the GUI.
         """
-        pass
+        self.maze = Maze()
+        self.maze.generate_maze(self.difficulty)
+        drawer = MazeDrawer(self.maze)
+        drawer.draw_maze()
 
 if __name__ == "__main__":
     gui = MazeGUI()
     gui.show_welcome_window()
     gui.select_difficulty()
+    maze = Maze()
+    maze.generate_maze(gui.difficulty)
+    gui.run()
