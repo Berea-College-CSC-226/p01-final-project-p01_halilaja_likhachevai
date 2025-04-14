@@ -74,6 +74,8 @@ class Navigator:
         self.maze = maze #instance variable that holds reference to Maze
         self.timer_start = None #timestamp when navigator begins
 
+
+
     def move_forward(self):
         """
         Moves the navigator forward in the current facing direction.
@@ -150,13 +152,13 @@ class Maze:
         """
         return self.goal
 
-    def find_start_position(grid):
+    def find_start_position(self):
         """
         Searches the maze grid for the cell marked as the starting point ('S')
-        Args: grid (list[list[str]]): the 2d maze grid
+
         :return: tuple[int, int]: coordinates (x,y) of the starting cell, or None if not found
         """
-        for y, row in enumerate(grid):
+        for y, row in enumerate(self.grid):
             for x, cell in enumerate(row):
                 if cell == 'S':
                     return x, y
