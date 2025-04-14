@@ -397,6 +397,7 @@ class MazeGUI:
         start_x, start_y = self.maze.get_start()
         self.navigator = Navigator(self.maze, x=start_x, y=start_y)
         self.navigator.go_to_start()
+        turtle.done()
 
 if __name__ == "__main__":
     gui = MazeGUI()
