@@ -98,6 +98,7 @@ class Navigator:
         screen_x = start_x + self.x * cell_size + cell_size // 2
         screen_y = start_y - self.y * cell_size - cell_size // 2
         self.turtle.goto(screen_x, screen_y)
+        self.turtle.showturtle()
 
     def move_forward(self):
         """
