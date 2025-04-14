@@ -85,7 +85,19 @@ class Navigator:
         headings = {'N': 90, 'E': 0, 'S': 270, 'W': 180}
         self.turtle.setheading(headings.get(self.direction, 90))
 
-
+    def go_to_start(self):
+        """
+        Moves the turtle to the screen coordinates corresponding to the navigator's
+        starting position in the maze grid.
+        :return: None
+        """
+        cell_size = 20
+        grid = self.maze.grid
+        start_x = -len(grid[0]) * cell_size // 2
+        start_y = len(grid) * cell_size // 2
+        screen_x = start_x + self.x * cell_size + cell_size // 2
+        screen_y = start_y - self.y * cell_size - cell_size // 2
+        self.turtle.goto(screen_x, screen_y)
 
     def move_forward(self):
         """
@@ -269,13 +281,13 @@ class MazeDrawer:
 
         turtle.done()
 
-    def draw_navigator(self, x, y):
-        """
-        Draws the navigator's starting position in the maze.
-        :param x: x-coordinate in the maze grid.
-        :param y: y-coordinate in the maze grid.
-        """
-        pass
+    # def draw_navigator(self, x, y):
+    #     """
+    #     Draws the navigator's starting position in the maze.
+    #     :param x: x-coordinate in the maze grid.
+    #     :param y: y-coordinate in the maze grid.
+    #     """
+    #     pass
 
     def update_position(self, x, y):
         """
