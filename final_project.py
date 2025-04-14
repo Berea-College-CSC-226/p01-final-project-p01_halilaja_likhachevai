@@ -85,6 +85,8 @@ class Navigator:
         headings = {'N': 90, 'E': 0, 'S': 270, 'W': 180}
         self.turtle.setheading(headings.get(self.direction, 90))
 
+
+
     def move_forward(self):
         """
         Moves the navigator forward in the current facing direction.
@@ -151,7 +153,11 @@ class Maze:
 
         Returns: tuple[int, int]: The (x, y) coordinates of the starting position.
         """
-        return self.start
+        for y, row in enumerate(self.grid):
+            for x, cell in enumerate(row):
+                if cell == 'S':
+                    return x, y
+        return None
 
     def get_goal(self):
         """
@@ -160,18 +166,6 @@ class Maze:
         Returns: tuple[int, int]: The (x, y) coordinates of the goal position.
         """
         return self.goal
-
-    def find_start_position(self):
-        """
-        Searches the maze grid for the cell marked as the starting point ('S')
-
-        :return: tuple[int, int]: coordinates (x,y) of the starting cell, or None if not found
-        """
-        for y, row in enumerate(self.grid):
-            for x, cell in enumerate(row):
-                if cell == 'S':
-                    return x, y
-        return None
 
     def generate_maze(self, difficulty):
         """
