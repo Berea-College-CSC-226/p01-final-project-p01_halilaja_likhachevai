@@ -74,7 +74,7 @@ class Navigator:
         self.maze = maze #instance variable that holds reference to Maze
         self.timer_start = None #timestamp when navigator begins
 
-
+        self.turtle = turtle.Turtle()
 
     def move_forward(self):
         """
