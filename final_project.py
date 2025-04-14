@@ -280,7 +280,7 @@ class MazeDrawer:
                 turtle.end_fill()
                 turtle.penup()
 
-        turtle.done()
+
 
     # def draw_navigator(self, x, y):
     #     """
@@ -394,6 +394,9 @@ class MazeGUI:
         self.maze.generate_maze(self.difficulty)
         drawer = MazeDrawer(self.maze)
         drawer.draw_maze()
+        start_x, start_y = self.maze.get_start()
+        self.navigator = Navigator(self.maze, x=start_x, y=start_y)
+        self.navigator.go_to_start()
 
 if __name__ == "__main__":
     gui = MazeGUI()
