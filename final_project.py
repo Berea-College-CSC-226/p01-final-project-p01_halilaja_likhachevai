@@ -76,6 +76,15 @@ class Navigator:
 
         self.turtle = turtle.Turtle()
 
+        self.turtle.shape("turtle")
+        self.turtle.color("blue")
+        self.turtle.penup()
+        self.set_heading()
+
+    def set_heading(self):
+        headings = {'N': 90, 'E': 0, 'S': 270, 'W': 180}
+        self.turtle.setheading(headings.get(self.direction, 90))
+
     def move_forward(self):
         """
         Moves the navigator forward in the current facing direction.
