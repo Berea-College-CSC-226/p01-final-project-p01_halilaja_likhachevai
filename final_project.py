@@ -150,6 +150,18 @@ class Maze:
         """
         return self.goal
 
+    def find_start_position(grid):
+        """
+        Searches the maze grid for the cell marked as the starting point ('S')
+        Args: grid (list[list[str]]): the 2d maze grid
+        :return: tuple[int, int]: coordinates (x,y) of the starting cell, or None if not found
+        """
+        for y, row in enumerate(grid):
+            for x, cell in enumerate(row):
+                if cell == 'S':
+                    return x, y
+        return None
+
     def generate_maze(self, difficulty):
         """
         Generates a new maze layout based on the specified difficulty level.
