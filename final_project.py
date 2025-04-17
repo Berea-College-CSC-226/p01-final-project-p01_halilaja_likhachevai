@@ -12,9 +12,9 @@
 
 import time
 import turtle
-import math
 import tkinter as tk
 import random
+import math
 
 
 class Point:
@@ -29,6 +29,7 @@ class Point:
         self.y = y #instance variable which holds the y value
         self.turtle = None #instance variable which is initially set to None until draw_point() is called.
 
+
     def __str__(self):
         """
         Returns a string representation of the Point object.
@@ -36,6 +37,7 @@ class Point:
         Returns: str: The formatted string "Point(x, y)".
         """
         return f"Point({self.x}, {self.y})"
+
 
     def distance_from_origin(self):
         """
@@ -45,18 +47,19 @@ class Point:
         """
         return math.sqrt(self.x ** 2 + self.y ** 2)
 
+
     def user_set(self):
         """
         Allows the user to input and update the x and y coordinates of the Point.
         """
         pass
 
+
     def draw_point(self):
         """
         Uses the turtle graphics module to draw the point on the screen.
         """
         pass
-
 
 
 class Navigator:
@@ -75,15 +78,23 @@ class Navigator:
         self.timer_start = None #timestamp when navigator begins
 
         self.turtle = turtle.Turtle()
-
         self.turtle.shape("turtle")
         self.turtle.color("blue")
         self.turtle.penup()
         self.set_heading()
 
+        self.screen = turtle.Screen()
+        self.timer_writer = turtle.Turtle()
+        self.timer_writer.hideturtle()
+        self.timer_writer.penup()
+        self.timer_writer.goto(200, 200)
+        self.is_timer_running = False
+
+
     def set_heading(self):
-        headings = {'N': 90, 'E': 0, 'S': 270, 'W': 180}
+        headings = {'N': 0, 'E': 0, 'S': 270, 'W': 180}
         self.turtle.setheading(headings.get(self.direction, 90))
+
 
     def go_to_start(self):
         """
@@ -99,24 +110,89 @@ class Navigator:
         screen_y = start_y - self.y * cell_size - cell_size // 2
         self.turtle.goto(screen_x, screen_y)
         self.turtle.showturtle()
+        turtle.update()
+
 
     def move_forward(self):
         """
         Moves the navigator forward in the current facing direction.
         """
-        pass
+
+        # Starts the timer and begins updating if not already running.
+        if not self.is_timer_running:
+            self.timer_start = time.time()
+            self.is_timer_running = True
+            self.update_timer()
+
+        move_offsets = {'N': (0, -1), 'E': (1, 0), 'S': (0, 1), 'W': (-1, 0)}
+        dx, dy = move_offsets[self.direction]
+        new_x, new_y = self.x + dx, self.y + dy
+
+        # Convert navigator's position to grid coordinates (#47)
+        if self.maze.is_path(new_x, new_y):  # Check if next cell is valid path (#48)
+            self.x, self.y = new_x, new_y
+            self.update_position()
+        else:
+            tk.messagebox.showwarning("Invalid Move", "You can't go through walls!")
+
+
+    def move_up(self):
+        """
+        Moves the navigator up
+        """
+        self.direction = 'N'
+        self.move_forward()
+
+
+    def move_down(self):
+        """
+        Moves the navigator down
+        """
+        self.direction = 'S'
+        self.move_forward()
+
 
     def turn_left(self):
         """
         Rotates the navigator's current facing direction to the left.
         """
-        pass
+        self.direction = 'W'
+        self.move_forward()
+
 
     def turn_right(self):
         """
         Rotates the navigator's current facing direction to the right.
         """
-        pass
+        self.direction = 'E'
+        self.move_forward()
+
+    def update_position(self):
+        cell_size = 20
+        start_x = -len(self.maze.grid[0]) * cell_size // 2
+        start_y = len(self.maze.grid) * cell_size // 2
+        screen_x = start_x + self.x * cell_size + cell_size // 2
+        screen_y = start_y - self.y * cell_size - cell_size // 2
+        self.turtle.goto(screen_x, screen_y)
+        turtle.update()
+
+
+    def update_timer(self):
+        if not self.is_timer_running:
+            return
+        elapsed = time.time() - self.timer_start # Calculates time elapsed since the timer started.
+        self.timer_writer.clear()
+        self.timer_writer.write(f"⏱️ Time: {elapsed:.1f} sec", font=("Arial", 14, "bold"))
+        self.screen.ontimer(self.update_timer, 100)  # update every 100ms
+
+
+    def bind_keys(self):
+        turtle.listen()  # IV.B.2
+        turtle.onkey(self.move_up, 'Up')
+        turtle.onkey(self.move_down, 'Down')
+        turtle.onkey(self.turn_left, 'Left')
+        turtle.onkey(self.turn_right, 'Right')
+
 
     def at_goal(self):
         """
@@ -125,6 +201,15 @@ class Navigator:
         Returns: bool: True if the navigator is at the goal, False otherwise.
         """
         pass
+
+
+    def start_timer(self):
+        """
+        Starts the timer to track how long the user takes to solve the maze.
+        """
+        if self.timer_start is None:
+            self.timer_start = time.time()
+
 
     def get_time_elapsed(self):
         """
@@ -136,6 +221,7 @@ class Navigator:
             self.timer_start = time.time()
             return 0
         return time.time() - self.timer_start
+
 
 class Maze:
     def __init__(self, grid=None):
@@ -149,6 +235,7 @@ class Maze:
         self.goal = (1, 1) #goal position
         self.difficulty = None #current difficulty level
 
+
     def is_path(self, x, y):
         """
         Checks whether the cell at position (x, y) is a valid walkable path.
@@ -158,7 +245,8 @@ class Maze:
 
         Returns: bool: True if the cell is walkable (not a wall), False otherwise.
         """
-        pass
+        return 0 <= y < len(self.grid) and 0 <= x < len(self.grid[0]) and self.grid[y][x] != '#' # Checks if (x, y) is within grid bounds and not a wall.
+
 
     def get_start(self):
         """
@@ -172,6 +260,7 @@ class Maze:
                     return x, y
         return None
 
+
     def get_goal(self):
         """
         Returns the goal position of the maze.
@@ -179,6 +268,7 @@ class Maze:
         Returns: tuple[int, int]: The (x, y) coordinates of the goal position.
         """
         return self.goal
+
 
     def generate_maze(self, difficulty):
         """
@@ -227,6 +317,7 @@ class Maze:
 
         self.difficulty = difficulty
 
+
 class MazeDrawer:
     def __init__(self, maze):
         """
@@ -238,12 +329,14 @@ class MazeDrawer:
         self.turtle = None      #turtle object to draw maze
         self.cell_size = 20     #size of each cell in pixels
 
+
     def draw_maze(self):
         """
         Uses the turtle graphics module to draw the maze layout including walls and paths.
         """
         turtle.clearscreen()
-        turtle.speed(0.1)
+        turtle.tracer(0, 0)  # Disable animation
+        turtle.speed(0)
         turtle.hideturtle()
         turtle.penup()
 
@@ -279,16 +372,8 @@ class MazeDrawer:
                     turtle.right(90)
                 turtle.end_fill()
                 turtle.penup()
+        turtle.update()
 
-
-
-    # def draw_navigator(self, x, y):
-    #     """
-    #     Draws the navigator's starting position in the maze.
-    #     :param x: x-coordinate in the maze grid.
-    #     :param y: y-coordinate in the maze grid.
-    #     """
-    #     pass
 
     def update_position(self, x, y):
         """
@@ -297,7 +382,14 @@ class MazeDrawer:
         :param y: new y-coordinate in the maze grid.
         :return:
         """
-        pass
+        cell_size = 20
+        start_x = -len(self.maze.grid[0]) * cell_size // 2
+        start_y = len(self.maze.grid) * cell_size // 2
+        screen_x = start_x + self.x * cell_size + cell_size // 2
+        screen_y = start_y - self.y * cell_size - cell_size // 2
+
+        self.turtle.goto(screen_x, screen_y)  # Move turtle using goto (#49)
+
 
 class MazeGUI:
     def __init__(self):
@@ -309,6 +401,7 @@ class MazeGUI:
         self.timer = None       #timer label (not used yet)
         self.navigator = None   #navigator object
         self.maze = None        #maze object
+
 
     def show_welcome_window(self):
         """
@@ -358,6 +451,7 @@ class MazeGUI:
 
         result_window.mainloop()
 
+
     def select_difficulty(self):
         """
         Displays a GUI window allowing the user to choose the maze difficulty.
@@ -380,11 +474,8 @@ class MazeGUI:
 
         self.window.mainloop()  #I.C.1/2
 
-    def start_timer(self):
-        """
-        Starts the timer to track how long the user takes to solve the maze.
-        """
-        pass
+
+
 
     def run(self):
         """
@@ -392,12 +483,17 @@ class MazeGUI:
         """
         self.maze = Maze()
         self.maze.generate_maze(self.difficulty)
+
         drawer = MazeDrawer(self.maze)
         drawer.draw_maze()
+
         start_x, start_y = self.maze.get_start()
         self.navigator = Navigator(self.maze, x=start_x, y=start_y)
         self.navigator.go_to_start()
+        self.navigator.bind_keys()
+
         turtle.done()
+
 
 if __name__ == "__main__":
     gui = MazeGUI()
