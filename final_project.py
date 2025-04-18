@@ -135,6 +135,13 @@ class Navigator:
         else:
             tk.messagebox.showwarning("Invalid Move", "You can't go through walls!")
 
+        if self.at_goal():
+            elapsed = self.get_time_elapsed()
+            self.is_timer_running = False #stop timer loop
+            self.timer_writer.goto(200, 170)
+            self.timer_writer.write(f"🎉 Goal reached in {elapsed:.1f} seconds!", font = ("Arial", 14, "bold"))
+            tk.messagebox.showinfo("Congratulations!", f"You solved the maze in {elapsed:.1f} seconds!")
+
 
     def move_up(self):
         """
