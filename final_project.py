@@ -200,7 +200,8 @@ class Navigator:
 
         Returns: bool: True if the navigator is at the goal, False otherwise.
         """
-        pass
+        goal_x, goal_y = self.maze.get_goal()
+        return self.x == goal_x and self.y == goal_y
 
 
     def start_timer(self):
