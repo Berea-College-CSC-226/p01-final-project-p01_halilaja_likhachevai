@@ -267,7 +267,11 @@ class Maze:
 
         Returns: tuple[int, int]: The (x, y) coordinates of the goal position.
         """
-        return self.goal
+        for y, row in enumerate(self.grid):
+            for x, cell in enumerate(row):
+                if cell == 'G':
+                    return x, y
+        return None
 
 
     def generate_maze(self, difficulty):
