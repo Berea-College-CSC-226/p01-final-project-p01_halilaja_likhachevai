@@ -14,6 +14,7 @@
 from final_project import *
 from inspect import getframeinfo, stack
 import math
+import tine
 
 
 def unittest(did_pass):

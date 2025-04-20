@@ -20,52 +20,6 @@ import importlib
 
 should_restart = True
 
-
-class Point:
-    def __init__(self, x=0, y=0):
-        """
-        Initializes a new Point object at coordinates (x, y).
-
-        Args: x (float, optional): The x-coordinate. Defaults to 0.
-              y (float, optional): The y-coordinate. Defaults to 0.
-        """
-        self.x = x #instance variable which holds the x value
-        self.y = y #instance variable which holds the y value
-        self.turtle = None #instance variable which is initially set to None until draw_point() is called.
-
-
-    def __str__(self):
-        """
-        Returns a string representation of the Point object.
-
-        Returns: str: The formatted string "Point(x, y)".
-        """
-        return f"Point({self.x}, {self.y})"
-
-
-    def distance_from_origin(self):
-        """
-        Computes the Euclidean distance from the point to the origin (0, 0).
-
-        Returns: float: The distance from the origin.
-        """
-        return math.sqrt(self.x ** 2 + self.y ** 2)
-
-
-    def user_set(self):
-        """
-        Allows the user to input and update the x and y coordinates of the Point.
-        """
-        pass
-
-
-    def draw_point(self):
-        """
-        Uses the turtle graphics module to draw the point on the screen.
-        """
-        pass
-
-
 class Navigator:
     def __init__(self, maze, x=0, y=0, direction='N'):
         """
