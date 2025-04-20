@@ -15,6 +15,10 @@ import turtle
 import tkinter as tk
 import random
 import math
+import importlib
+
+
+should_restart = True
 
 
 class Point:
@@ -92,6 +96,11 @@ class Navigator:
 
 
     def set_heading(self):
+        """
+        Sets the turtle's heading based on the current direction.
+
+        Defaults to 90 degrees (North) if the direction is unrecognized.
+        """
         headings = {'N': 0, 'E': 0, 'S': 270, 'W': 180}
         self.turtle.setheading(headings.get(self.direction, 90))
 
@@ -134,13 +143,15 @@ class Navigator:
             self.update_position()
         else:
             tk.messagebox.showwarning("Invalid Move", "You can't go through walls!")
+            return  # Don't check goal or show popup if invalid move
 
+        # Only trigger popup *if goal is reached*
         if self.at_goal():
             elapsed = self.get_time_elapsed()
             self.is_timer_running = False #stop timer loop
             self.timer_writer.goto(200, 170)
             self.timer_writer.write(f"🎉 Goal reached in {elapsed:.1f} seconds!", font = ("Arial", 14, "bold"))
-            tk.messagebox.showinfo("Congratulations!", f"You solved the maze in {elapsed:.1f} seconds!")
+            self.show_end_popup(elapsed)  # Moved inside the if block
 
 
     def move_up(self):
@@ -175,6 +186,12 @@ class Navigator:
         self.move_forward()
 
     def update_position(self):
+        """
+        Updates the turtle's screen position based on its current grid coordinates.
+
+        Converts the navigator's (x, y) position in the maze grid to pixel coordinates
+        on the screen and moves the turtle to that location. Also refreshes the turtle display.
+        """
         cell_size = 20
         start_x = -len(self.maze.grid[0]) * cell_size // 2
         start_y = len(self.maze.grid) * cell_size // 2
@@ -185,6 +202,12 @@ class Navigator:
 
 
     def update_timer(self):
+        """
+        Continuously updates the on-screen timer while the navigator is moving.
+
+        Displays the elapsed time since the navigator started and schedules the next update
+        every 100 milliseconds using `ontimer`, as long as the timer is running.
+        """
         if not self.is_timer_running:
             return
         elapsed = time.time() - self.timer_start # Calculates time elapsed since the timer started.
@@ -194,6 +217,11 @@ class Navigator:
 
 
     def bind_keys(self):
+        """
+        Binds arrow key inputs to navigator movement functions.
+
+        Allows the user to control the navigator using the keyboard
+        """
         turtle.listen()  # IV.B.2
         turtle.onkey(self.move_up, 'Up')
         turtle.onkey(self.move_down, 'Down')
@@ -229,6 +257,49 @@ class Navigator:
             self.timer_start = time.time()
             return 0
         return time.time() - self.timer_start
+
+    def show_end_popup(self, elapsed):
+        """
+        Displays a popup window with 'Play Again' and 'Exit' buttons after completing the maze.
+        """
+        popup = tk.Tk()
+        popup.title("Maze Completed!")
+        popup.geometry("300x150")
+        popup.resizable(False, False)
+
+        label = tk.Label(popup, text=f"🎉 You solved the maze in {elapsed:.1f} seconds!", font=("Arial", 12))
+        label.pack(pady=15)
+
+        def play_again():
+            """
+            Restarts the game from the difficulty selection screen.
+            """
+            global should_restart
+            should_restart = True
+            popup.destroy()
+            turtle.bye()
+
+            #Reset turtle graphics environment before restarting
+            importlib.reload(turtle)
+
+            main()
+
+        def exit_game():
+            """
+            Exits the game without restarting.
+            """
+            global should_restart
+            should_restart = False
+            popup.destroy()
+            turtle.bye()
+
+        play_again_button = tk.Button(popup, text="Play Again", width=12, command=play_again)
+        exit_button = tk.Button(popup, text="Exit", width=12, command=exit_game)
+
+        play_again_button.pack(pady=5)
+        exit_button.pack(pady=5)
+
+        popup.mainloop()
 
 
 class Maze:
@@ -487,8 +558,6 @@ class MazeGUI:
         self.window.mainloop()  #I.C.1/2
 
 
-
-
     def run(self):
         """
         Runs the Tkinter mainloop to display and maintain the GUI.
@@ -507,10 +576,17 @@ class MazeGUI:
         turtle.done()
 
 
-if __name__ == "__main__":
+def main():
+    global should_restart
+    should_restart = True  # Reset it each time main() is called
+
     gui = MazeGUI()
     gui.show_welcome_window()
     gui.select_difficulty()
-    maze = Maze()
-    maze.generate_maze(gui.difficulty)
-    gui.run()
+
+    if should_restart:
+        gui.run()
+
+
+if __name__ == "__main__":
+    main()
