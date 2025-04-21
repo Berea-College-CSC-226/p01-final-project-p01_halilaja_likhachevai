@@ -14,7 +14,7 @@
 from final_project import *
 from inspect import getframeinfo, stack
 import math
-import tine
+import time
 
 
 def unittest(did_pass):
@@ -32,23 +32,28 @@ def unittest(did_pass):
     print(msg)
 
 def test_suite():
-    # Test the distance_from_origin() function
-    print("Testing distance_from_origin()")
-    p1 = Point(3,4)
-    try:
-        result = p1.distance_from_origin()
-        unittest(math.isclose(result, 5.0))
-    except:
-        unittest(False)
+    #test Maze.is_path()
+    print("Testing Maze.is_path()")
+    maze = Maze([['S', ' '], ['#', 'G']])
+    unittest(maze.is_path(0, 0)) #start is a path
+    unittest(not maze.is_path(0, 1))  #wall
+    unittest(maze.is_path(1, 0))  #path
+    unittest(not maze.is_path(2, 2))  #out of bounds
 
-    # Test the user_set() function (skipping because it requires user input)
-    print("Testing user_set() - skipped (requires input)")
+    #test Maze.get_start() and Maze.get_goal()
+    print("Testing Maze.get_start() and Maze.get_goal()")
+    unittest(maze.get_start() == (0, 0))
+    unittest(maze.get_goal() == (1, 1))
 
-    # Test the draw_point() function (basic attribute test)
-    print("Testing draw_point()")
+    #test Maze.generate_maze()
+    print("Testing Maze.generate_maze()")
     try:
-        p1.draw_point()
-        unittest(p1.turtle is not None)
+        maze.generate_maze("Easy")
+        start = maze.get_start()
+        goal = maze.get_goal()
+        unittest(start is not None and goal is not None)
+        unittest(maze.grid[start[1]][start[0]] == 'S')
+        unittest(maze.grid[goal[1]][goal[0]] == 'G')
     except:
         unittest(False)
 
