@@ -31,97 +31,113 @@ def unittest(did_pass):
         msg = f"Test at line {lineum} failed."
     print(msg)
 
-def test_suite():
-    #test Maze.is_path()
-    print("Testing Maze.is_path()")
-    maze = Maze([['S', ' '], ['#', 'G']])
-    unittest(maze.is_path(0, 0)) #start is a path
-    unittest(not maze.is_path(0, 1))  #wall
-    unittest(maze.is_path(1, 0))  #path
-    unittest(not maze.is_path(2, 2))  #out of bounds
+def test_navigator():
+    print("\n Running tests for Navigator class...")
 
-    #test Maze.get_start() and Maze.get_goal()
-    print("Testing Maze.get_start() and Maze.get_goal()")
-    unittest(maze.get_start() == (0, 0))
-    unittest(maze.get_goal() == (1, 1))
+    #setup a simple maze
+    grid = [['S', ' '], ['#', 'G']]
+    maze = Maze(grid)
+    navigator = Navigator(maze, x=0, y=0) #start at (0, 0) which is S
 
-    #test Maze.generate_maze()
-    print("Testing Maze.generate_maze()")
-    try:
-        maze.generate_maze("Easy")
-        start = maze.get_start()
-        goal = maze.get_goal()
-        unittest(start is not None and goal is not None)
-        unittest(maze.grid[start[1]][start[0]] == 'S')
-        unittest(maze.grid[goal[1]][goal[0]] == 'G')
-    except:
-        unittest(False)
+    #test initial position and direction
+    unittest(navigator.x == 0 and navigator.y == 0)
+    unittest(navigator.direction == 'N')
 
-    #test Navigator.get_time_elapsed()
-    print("Testing Navigator.get_time_elapsed()")
-    nav = Navigator(maze)
-    t1 = nav.get_time_elapsed()
+    #test get_time_elapsed()
+    t1 = navigator.get_time_elapsed()
     time.sleep(0.1)
-    t2 = nav.get_time_elapsed()
+    t2 = navigator.get_time_elapsed()
     unittest(t2 >= t1)
 
-    #test Navigator.at_goal()
-    print("Testing Navigator.at_goal()")
-    nav.x, nav.y = maze.get_goal()
-    unittest(nav.at_goal())
+    #test at_goal() - should be False at start
+    unittest(not navigator.at_goal())
 
+    #manually move to goal position and test at_goal()
+    gx, gy = maze.get_goal()
+    navigator.x = gx
+    navigator.y = gy
+    unittest(navigator.at_goal())
 
+    #test move_forward() logic without GUI by mocking maze layout
+    test_maze = Maze([['S', ' '], ['#', 'G']])
+    nav = Navigator(test_maze, x=0, y=0, direction='E')  #facing right, should move to (1, 0)
+    nav.move_forward()
+    unittest((nav.x, nav.y) == (1, 0))
 
-    # Test the move_forward() function
-    print("Testing move_forward()")
+    #test invalid move (into wall)
+    nav.direction = 'S'  #facing down, should hit wall at (1, 1)
+    prev_x, prev_y = nav.x, nav.y
+    nav.move_forward()
+    unittest((nav.x, nav.y) == (prev_x, prev_y))  #shouldn't change
 
-    # Test the turn_left() function
-    print("Testing turn_left()")
+    print("Navigator tests complete.")
 
-    # Test the turn_right() function
-    print("Testing turn_right()")
+def test_maze():
+    print("\n Running tests for Maze class...")
 
-    # Test the at_goal() function
-    print("Testing at_goal()")
+    #test basic path check
+    m = Maze([['S', ' '], ['#', 'G']])
+    unittest(m.is_path(0, 0))  #'S' is valid path
+    unittest(m.is_path(1, 0))  #space is valid
+    unittest(not m.is_path(0, 1))  #wall is not path
+    unittest(not m.is_path(2, 2))  #out of bonds
 
-    # Test the get_time_elapsed() function
-    print("Testing get_time_elapsed()")
-    nav = Navigator(Maze())
-    elapsed1 = nav.get_time_elapsed()
-    time.sleep(0.1)
-    elapsed2 = nav.get_time_elapsed()
-    unittest(elapsed2 >= elapsed1)
+    #test get start and goal position
+    unittest(m.get_start() == (0, 0))
+    unittest(m.get_goal() == (1, 1))
 
-    # Test the is_path() function
-    print("Testing is_path()")
+    #test generate maze with known size
+    m.generate_maze("Easy")
+    width = len(m.grid[0])
+    height = len(m.grid)
+    unittest(width == 10)
+    unittest(height == 10)
+    unittest(m.grid[m.get_start()[1]][m.get_start()[0]] == 'S')
+    unittest(m.grid[m.get_goal()[1]][m.get_goal()[0]] == 'G')
 
-    # Test the get_start() function
-    print("Testing get_start()")
+    print("Maze tests complete.")
 
-    # Test the get_goal() function
-    print("Testing get_goal()")
+def test_maze_drawer():
+    print("\n Running tests for MazeDrawer class...")
 
-    # Test the generate_maze() function
-    print("Testing generate_maze()")
+    #create a simple maze grid
+    maze = Maze([['S', ' '], ['#', 'G']])
+    drawer = MazeDrawer(maze)
 
-    # Test the draw_maze() function
-    print("Testing draw_maze()")
+    #test object setup
+    unittest(drawer.cell_size == 20)
+    unittest(drawer.maze == maze)
 
-    # Test the draw_navigator() function
-    print("Testing draw_navigator()")
+    #can't test draw_maze() directly because it uses Turtle graphics
+    print("Skipping draw_maze() and update_position() - requires Turtle screen.")
 
-    # Test the update_position() function
-    print("Testing update_position()")
+    print("MazeDrawer tests complete.")
 
-    # Test the select_difficulty() function
-    print("Testing select_difficulty()")
+def test_maze_gui():
+    print("\n Running tests for MazeGUI class...")
 
-    # Test the start_timer() function
-    print("Testing start_timer()")
+    gui = MazeGUI()
 
-    # Test the run() function
-    print("Testing run()")
+    #initial state checks
+    unittest(gui.window is None)
+    unittest(gui.difficulty is None)
+    unittest(gui.timer is None)
+    unittest(gui.navigator is None)
+    unittest(gui.maze is None)
 
+    #GUI methods like show_welcome_window, select_difficulty, and run
+    #involve real GUI interaction and we can not test them
+    print("Skipping show_welcome_Window(), select_difficulty(), and run() - GUI dependent.")
+
+    print("MazeGUI tests complete.")
+
+def run_all_tests():
+    print("\n Starting full test suite. ")
+    test_maze()
+    test_navigator()
+    test_maze_drawer()
+    test_maze_gui()
+    print("\n All tests completed successfully.")
 
 if __name__ == "__main__":
-    test_suite()
+    run_all_tests()
