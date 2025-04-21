@@ -64,14 +64,22 @@ What has surprised you so far? Describe your general feelings. Be honest with yo
 
 Indicate what percentage of the project you have left to complete and how confident you feel. 
 
-❗️**Completion Percentage**: `0 - 100%`
+**Completion Percentage**: `95%`
 
-❗️**Confidence**: Describe how confident you feel about completing this project, and why. Then, describe some 
+**Confidence**: Describe how confident you feel about completing this project, and why. Then, describe some 
   strategies you can employ to increase the likelihood that you'll be successful in completing this project 
   before the deadline.
 
 ```
-    **Replace this text with your reflection
+    We feel very confident about completing this project because we’ve already finished about 95% of the work. Most of the key components are in place, the code is written, and all test suites have been added.
+Only minor adjustments and final touches remain. We also plan to review the code and "clean" it to ensure every function has a docstring, all syntax is correct, and nothing is missing.
+To ensure we successfully complete the project before the deadline, here are a few strategies we plan to use:
+
+- double-check the issue queue and/or create new issues for anything that still needs to be addressed;
+- set mini-deadlines for each remaining step to stay on schedule;
+- review and test everything thoroughly to avoid last-minute problems
+
+We also understand that communication is key, so we’ll continue to coordinate closely and clearly with each other to complete the final steps efficiently.
 ```
 
 ---
