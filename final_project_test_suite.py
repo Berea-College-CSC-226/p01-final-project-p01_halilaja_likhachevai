@@ -57,6 +57,21 @@ def test_suite():
     except:
         unittest(False)
 
+    #test Navigator.get_time_elapsed()
+    print("Testing Navigator.get_time_elapsed()")
+    nav = Navigator(maze)
+    t1 = nav.get_time_elapsed()
+    time.sleep(0.1)
+    t2 = nav.get_time_elapsed()
+    unittest(t2 >= t1)
+
+    #test Navigator.at_goal()
+    print("Testing Navigator.at_goal()")
+    nav.x, nav.y = maze.get_goal()
+    unittest(nav.at_goal())
+
+
+
     # Test the move_forward() function
     print("Testing move_forward()")
 
