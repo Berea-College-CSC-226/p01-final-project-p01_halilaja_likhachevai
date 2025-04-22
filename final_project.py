@@ -45,7 +45,22 @@ class Navigator:
         self.timer_writer = turtle.Turtle()
         self.timer_writer.hideturtle()
         self.timer_writer.penup()
-        self.timer_writer.goto(200, 200)
+        #adjust timer position based on maze size (difficulty)
+        maze_width = len(maze.grid[0])
+        maze_height = len(maze.grid)
+        cell_size = 20
+        x_offset = (maze_width * cell_size) // 2 - 80
+        y_offset = (maze_height * cell_size) // 2 - 30
+        self.timer_writer.goto(x_offset, y_offset)
+        difficulty = maze.difficulty
+        if difficulty == "Easy":
+            self.timer_writer.goto(105, 80)
+        elif difficulty == "Medium":
+            self.timer_writer.goto(200, 180)
+        elif difficulty == "Hard":
+            self.timer_writer.goto(300, 280)
+        else:
+            self.timer_writer.goto(200, 200)  # fallback
         self.is_timer_running = False
 
 
@@ -103,7 +118,12 @@ class Navigator:
         if self.at_goal():
             elapsed = self.get_time_elapsed()
             self.is_timer_running = False #stop timer loop
-            self.timer_writer.goto(200, 170)
+            maze_width = len(self.maze.grid[0])
+            maze_height = len(self.maze.grid)
+            cell_size = 20
+            x_offset = -(maze_width * cell_size) // 2   # Left margin
+            y_offset = (maze_height * cell_size) // 2 + 10  # Top margin
+            self.timer_writer.goto(x_offset, y_offset)
             self.timer_writer.write(f"🎉 Goal reached in {elapsed:.1f} seconds!", font = ("Arial", 14, "bold"))
             self.show_end_popup(elapsed)  # Moved inside the if block
 
@@ -377,6 +397,10 @@ class MazeDrawer:
         turtle.hideturtle()
         turtle.penup()
 
+        screen_width = len(self.maze.grid[0]) * self.cell_size + 300
+        screen_height = len(self.maze.grid) * self.cell_size + 100
+        turtle.setup(width=screen_width, height=screen_height)
+
         # Center maze horizontally: move left by half its width in pixels
         start_x = -len(self.maze.grid[0]) * self.cell_size // 2
 
@@ -435,7 +459,7 @@ class MazeGUI:
         """
         self.window = None      #will be initialized in select_difficulty
         self.difficulty = None  #selected difficulty level
-        self.timer = None       #timer label (not used yet)
+        self.timer = None       #timer label
         self.navigator = None   #navigator object
         self.maze = None        #maze object
 
