@@ -69,14 +69,27 @@ What has surprised you so far? Describe your general feelings. Be honest with yo
 
 Indicate what percentage of the project you have left to complete and how confident you feel. 
 
-❗️**Completion Percentage**: `0 - 100%`
+❗️**Completion Percentage**: `95%`
 
 ❗️**Confidence**: Describe how confident you feel about completing this project, and why. Then, describe some 
   strategies you can employ to increase the likelihood that you'll be successful in completing this project 
   before the deadline.
 
 ```
-    **Replace this text with your reflection
+    We feel confident that the project is mostly complete. Most of the code is finished, and the main features 
+    including maze generation for different difficulty levels, keyboard navigation, the timer, pop-up messages,
+    and GUI windows are all working well. The overall structure feels stable, and we don't have any major ideas
+    left to add at this point.
+    The only main task remaining is completing and polishing the test suite to make sure the game runs smoothly
+    across all levels and that the user experience feels consistent.
+    At this stage, our biggest focus is making sure everything works as expected and cleaning up any small issues.
+    We feel good about the progress we've made and are not worried about running out of time because the game works
+    as we have had friends play it and they navigated through it smoothly.
+    Strategies to finish successfully:
+      Focus on finishing the test suite and make sure it covers the main functions and edge cases.
+      Do a final round of testing together and check how the game runs from start to finish.
+      Make sure the code is well-commented and easy to read.
+      Check for any last small bugs, especially in movement logic, timer updates, and pop-up behavior.
 ```
 
 ---
