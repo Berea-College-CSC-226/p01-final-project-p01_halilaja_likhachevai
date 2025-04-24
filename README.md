@@ -40,6 +40,11 @@ https://sites.google.com/site/advancedpythonprogramming/recursion/exploring-a-ma
 https://www.w3schools.com/python/ref_func_enumerate.asp, 
 https://www.tutorialspoint.com/python_data_structure/python_binary_tree.htm, 
 https://docs.python.org/3/library/importlib.html
+https://www.geeksforgeeks.org/python-gui-tkinter/
+https://docs.python.org/3/library/time.html
+https://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap
+https://www.programiz.com/python-programming/time
+https://stackoverflow.com/questions/24758326/how-to-resize-a-turtle-screen-window-in-python
 
 ---
 
