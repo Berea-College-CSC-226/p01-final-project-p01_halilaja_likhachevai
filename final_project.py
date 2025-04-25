@@ -115,7 +115,7 @@ class Navigator:
         if self.at_goal():
             elapsed = self.get_time_elapsed()
             self.is_timer_running = False #stop timer loop
-            self.timer_writer.goto(200, 170)
+            self.timer_writer.goto(200,170)
             self.timer_writer.write(f"🎉 Goal reached in {elapsed:.1f} seconds!", font = ("Arial", 14, "bold"))
             self.show_end_popup(elapsed)  # Moved inside the if block
 
@@ -457,7 +457,7 @@ class MazeGUI:
         """
         self.window = None      #will be initialized in select_difficulty
         self.difficulty = None  #selected difficulty level
-        self.timer = None       #timer label (not used yet)
+        self.timer = None       #timer label
         self.navigator = None   #navigator object
         self.maze = None        #maze object
 
@@ -533,6 +533,87 @@ class MazeGUI:
 
         self.window.mainloop()  #I.C.1/2
 
+    def show_instructions_window(self):
+        instructions_window = tk.Tk()
+        instructions_window.title("How to Play")
+        instructions_window.geometry("550x550")
+        instructions_window.resizable(False, False)
+        instructions_window.configure(bg="#f0f8ff")
+
+        title_label = tk.Label(
+            instructions_window,
+            text="📋 How to Play",
+            font=("Arial", 18, "bold"),
+            bg="#f0f8ff",
+            fg="#003366"
+        )
+        title_label.pack(pady=15)
+
+        instructions_text = (
+            "🎯 Goal:\n"
+            "        Help the turtle reach the red square (the goal) as fast as possible!\n\n"
+            "🟩 Starting Point:\n"
+            "        The turtle starts at the green square.\n\n"
+            "🎮 Controls (Arrow Keys):\n"
+            "        ⬆️  Up Arrow       = Move up\n"
+            "        ⬇️  Down Arrow     = Move down\n"
+            "        ⬅️  Left Arrow     = Turn left\n"
+            "        ➡️  Right Arrow    = Turn right\n\n"
+            "🚫 Rules:\n"
+            "        You cannot go through walls (black squares).\n\n"
+            "⏱️ Timer:\n"
+            "        The timer starts automatically when you move.\n\n"
+            "🎉 Winning:\n"
+            "        When you reach the goal, your time will be displayed."
+        )
+
+        text_label = tk.Label(
+            instructions_window,
+            text=instructions_text,
+            font=("Arial", 12),
+            justify="left",
+            anchor="w",
+            bg="#f0f8ff",
+            fg="#003366"
+        )
+        text_label.pack(pady=10, padx=30, anchor="w")
+
+        ok_button = tk.Button(
+            instructions_window,
+            text="Got it! Let's Play!",
+            width=20,
+            command=instructions_window.destroy,
+            bg="#4682b4",
+            fg="white",
+            activebackground="#5f9ea0",
+            activeforeground="white"
+        )
+        ok_button.pack(pady=20)
+
+        instructions_window.mainloop()
+
+    def show_maximize_tip(self):
+        """
+        Shows a popup message recommending the player to maximize the window for the best game experience.
+        """
+        tip_window = tk.Tk()
+        tip_window.title("Tip for Best Experience")
+        tip_window.geometry("400x150")
+        tip_window.resizable(False, False)
+
+        tip_label = tk.Label(
+            tip_window,
+            text="📢 For the best game experience,\nplease maximize your Turtle window before playing!",
+            font=("Arial", 12),
+            justify="center"
+        )
+        tip_label.pack(pady=20)
+
+        ok_button = tk.Button(tip_window, text="OK", width=15, command=tip_window.destroy)
+        ok_button.pack(pady=10)
+
+        tip_window.mainloop()
+
 
     def run(self):
         """
@@ -558,6 +639,8 @@ def main():
 
     gui = MazeGUI()
     gui.show_welcome_window()
+    gui.show_instructions_window()
+    gui.show_maximize_tip()
     gui.select_difficulty()
 
     if should_restart:

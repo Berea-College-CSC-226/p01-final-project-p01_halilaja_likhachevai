@@ -40,6 +40,11 @@ https://sites.google.com/site/advancedpythonprogramming/recursion/exploring-a-ma
 https://www.w3schools.com/python/ref_func_enumerate.asp, 
 https://www.tutorialspoint.com/python_data_structure/python_binary_tree.htm, 
 https://docs.python.org/3/library/importlib.html
+https://www.geeksforgeeks.org/python-gui-tkinter/
+https://docs.python.org/3/library/time.html
+https://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap
+https://www.programiz.com/python-programming/time
+https://stackoverflow.com/questions/24758326/how-to-resize-a-turtle-screen-window-in-python
 
 ---
 
@@ -71,15 +76,20 @@ Indicate what percentage of the project you have left to complete and how confid
   before the deadline.
 
 ```
-    We feel very confident about completing this project because we’ve already finished about 95% of the work. Most of the key components are in place, the code is written, and all test suites have been added.
-Only minor adjustments and final touches remain. We also plan to review the code and "clean" it to ensure every function has a docstring, all syntax is correct, and nothing is missing.
-To ensure we successfully complete the project before the deadline, here are a few strategies we plan to use:
-
-- double-check the issue queue and/or create new issues for anything that still needs to be addressed;
-- set mini-deadlines for each remaining step to stay on schedule;
-- review and test everything thoroughly to avoid last-minute problems
-
-We also understand that communication is key, so we’ll continue to coordinate closely and clearly with each other to complete the final steps efficiently.
+    We feel confident that the project is mostly complete. Most of the code is finished, and the main features 
+    including maze generation for different difficulty levels, keyboard navigation, the timer, pop-up messages,
+    and GUI windows are all working well. The overall structure feels stable, and we don't have any major ideas
+    left to add at this point.
+    The only main task remaining is completing and polishing the test suite to make sure the game runs smoothly
+    across all levels and that the user experience feels consistent.
+    At this stage, our biggest focus is making sure everything works as expected and cleaning up any small issues.
+    We feel good about the progress we've made and are not worried about running out of time because the game works
+    as we have had friends play it and they navigated through it smoothly.
+    Strategies to finish successfully:
+      Focus on finishing the test suite and make sure it covers the main functions and edge cases.
+      Do a final round of testing together and check how the game runs from start to finish.
+      Make sure the code is well-commented and easy to read.
+      Check for any last small bugs, especially in movement logic, timer updates, and pop-up behavior.
 ```
 
 ---
