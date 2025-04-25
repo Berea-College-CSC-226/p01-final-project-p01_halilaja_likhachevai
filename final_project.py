@@ -20,6 +20,7 @@ import importlib
 
 should_restart = True
 
+
 class Navigator:
     def __init__(self, maze, x=0, y=0, direction='N'):
         """
@@ -444,8 +445,8 @@ class MazeDrawer:
         start_y = len(self.maze.grid) * cell_size // 2
 
         # Convert grid-based X and Y coordinates to screen X and Y coordinate
-        screen_x = start_x + self.x * cell_size + cell_size // 2
-        screen_y = start_y - self.y * cell_size - cell_size // 2
+        screen_x = start_x + x * cell_size + cell_size // 2
+        screen_y = start_y - y * cell_size - cell_size // 2
 
         self.turtle.goto(screen_x, screen_y)  # Move turtle using goto (#49)
 
@@ -534,12 +535,20 @@ class MazeGUI:
         self.window.mainloop()  #I.C.1/2
 
     def show_instructions_window(self):
-        instructions_window = tk.Tk()
-        instructions_window.title("How to Play")
-        instructions_window.geometry("550x550")
-        instructions_window.resizable(False, False)
-        instructions_window.configure(bg="#f0f8ff")
+        """
+        Creates and displays a window with detailed instructions
+        on how to play the turtle maze game.
+        Includes information about the goal, controls, rules, and winning conditions.
+        """
 
+        # Create a new window for instructions
+        instructions_window = tk.Tk()
+        instructions_window.title("How to Play") # Set the window title
+        instructions_window.geometry("550x550") # Set window size
+        instructions_window.resizable(False, False)  # Prevent window resizing
+        instructions_window.configure(bg="#f0f8ff") # Set background color
+
+        # Add a title label to the window
         title_label = tk.Label(
             instructions_window,
             text="📋 How to Play",
@@ -549,6 +558,7 @@ class MazeGUI:
         )
         title_label.pack(pady=15)
 
+        # Define the instructions text to explain the game
         instructions_text = (
             "🎯 Goal:\n"
             "        Help the turtle reach the red square (the goal) as fast as possible!\n\n"
@@ -567,6 +577,7 @@ class MazeGUI:
             "        When you reach the goal, your time will be displayed."
         )
 
+        # Add a label to display the instructions text
         text_label = tk.Label(
             instructions_window,
             text=instructions_text,
@@ -578,11 +589,12 @@ class MazeGUI:
         )
         text_label.pack(pady=10, padx=30, anchor="w")
 
+        # Add a button to close the instructions window and start the game
         ok_button = tk.Button(
             instructions_window,
             text="Got it! Let's Play!",
             width=20,
-            command=instructions_window.destroy,
+            command=instructions_window.destroy, # Close the instructions window
             bg="#4682b4",
             fg="white",
             activebackground="#5f9ea0",
@@ -590,6 +602,7 @@ class MazeGUI:
         )
         ok_button.pack(pady=20)
 
+        # Start the Tkinter event loop for the instructions window
         instructions_window.mainloop()
 
     def show_maximize_tip(self):
@@ -598,9 +611,10 @@ class MazeGUI:
         """
         tip_window = tk.Tk()
         tip_window.title("Tip for Best Experience")
-        tip_window.geometry("400x150")
-        tip_window.resizable(False, False)
+        tip_window.geometry("400x150") # Set the size of the tip window
+        tip_window.resizable(False, False) # Prevent resizing
 
+        # Add a label with the maximize tip message
         tip_label = tk.Label(
             tip_window,
             text="📢 For the best game experience,\nplease maximize your Turtle window before playing!",
@@ -609,9 +623,11 @@ class MazeGUI:
         )
         tip_label.pack(pady=20)
 
+        # Add an OK button to close the tip window
         ok_button = tk.Button(tip_window, text="OK", width=15, command=tip_window.destroy)
         ok_button.pack(pady=10)
 
+        # Start the Tkinter event loop for the tip window
         tip_window.mainloop()
 
 
