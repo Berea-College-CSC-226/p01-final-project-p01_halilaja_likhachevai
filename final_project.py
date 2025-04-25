@@ -1,6 +1,6 @@
 ######################################################################
-# Author: Arbjosa Halilaj, Iuliia Likhacheva
-# Username: halilaja, likhachevai
+# Authors: Arbjosa Halilaj, Iuliia Likhacheva
+# Usernames: halilaja, likhachevai
 #
 # Assignment: P01: Final Project
 #
@@ -20,6 +20,7 @@ import importlib
 
 should_restart = True
 
+
 class Navigator:
     def __init__(self, maze, x=0, y=0, direction='N'):
         """
@@ -29,18 +30,21 @@ class Navigator:
               start_x (int): The starting x-coordinate.
               start_y (int): The starting y-coordinate.
         """
+        # Initialize position, direction, and timer
         self.x = x #instance variable which holds the x coordinate
         self.y = y #instance variable which holds the y coordinate
         self.direction = direction #instance variable for current facing direction
         self.maze = maze #instance variable that holds reference to Maze
         self.timer_start = None #timestamp when navigator begins
 
+        # Initialize turtle graphics for navigator
         self.turtle = turtle.Turtle()
         self.turtle.shape("turtle")
         self.turtle.color("blue")
         self.turtle.penup()
         self.set_heading()
 
+        # Initialize timer display
         self.screen = turtle.Screen()
         self.timer_writer = turtle.Turtle()
         self.timer_writer.hideturtle()
@@ -67,10 +71,16 @@ class Navigator:
         """
         cell_size = 20
         grid = self.maze.grid
+
+        # Calculate starting X and Y coordinates (top-left corner of the maze grid)
         start_x = -len(grid[0]) * cell_size // 2
         start_y = len(grid) * cell_size // 2
+
+        # Convert grid coordinates (self.x, self.y) to screen coordinates (pixels)
         screen_x = start_x + self.x * cell_size + cell_size // 2
         screen_y = start_y - self.y * cell_size - cell_size // 2
+
+        # Move turtle to calculated screen position and make it visible
         self.turtle.goto(screen_x, screen_y)
         self.turtle.showturtle()
         turtle.update()
@@ -87,8 +97,11 @@ class Navigator:
             self.is_timer_running = True
             self.update_timer()
 
+        # Define movement offsets for each direction: North, East, South, and West
         move_offsets = {'N': (0, -1), 'E': (1, 0), 'S': (0, 1), 'W': (-1, 0)}
         dx, dy = move_offsets[self.direction]
+
+        # Calculate new position coordinates based on current position and direction offsets
         new_x, new_y = self.x + dx, self.y + dy
 
         # Convert navigator's position to grid coordinates (#47)
@@ -147,10 +160,16 @@ class Navigator:
         on the screen and moves the turtle to that location. Also refreshes the turtle display.
         """
         cell_size = 20
+
+        # Calculate top-left corner coordinates to center the maze on the screen
         start_x = -len(self.maze.grid[0]) * cell_size // 2
         start_y = len(self.maze.grid) * cell_size // 2
+
+        # Convert maze grid position (self.x, self.y) into actual screen coordinates
         screen_x = start_x + self.x * cell_size + cell_size // 2
         screen_y = start_y - self.y * cell_size - cell_size // 2
+
+        # Move the navigator's turtle to the calculated screen coordinates
         self.turtle.goto(screen_x, screen_y)
         turtle.update()
 
@@ -189,8 +208,8 @@ class Navigator:
 
         Returns: bool: True if the navigator is at the goal, False otherwise.
         """
-        goal_x, goal_y = self.maze.get_goal()
-        return self.x == goal_x and self.y == goal_y
+        goal_x, goal_y = self.maze.get_goal() # Retrieve goal coordinates from the maze object
+        return self.x == goal_x and self.y == goal_y  #Check if navigator's current position matches the goal position
 
 
     def start_timer(self):
@@ -289,7 +308,7 @@ class Maze:
         """
         for y, row in enumerate(self.grid):
             for x, cell in enumerate(row):
-                if cell == 'S':
+                if cell == 'S': # Check if the current cell is the starting point
                     return x, y
         return None
 
@@ -302,7 +321,7 @@ class Maze:
         """
         for y, row in enumerate(self.grid):
             for x, cell in enumerate(row):
-                if cell == 'G':
+                if cell == 'G':  # Check if the current cell is the goal
                     return x, y
         return None
 
@@ -420,10 +439,14 @@ class MazeDrawer:
         :return:
         """
         cell_size = 20
+
+        # Calculate the starting X and Y coordinates to center the maze horizontally
         start_x = -len(self.maze.grid[0]) * cell_size // 2
         start_y = len(self.maze.grid) * cell_size // 2
-        screen_x = start_x + self.x * cell_size + cell_size // 2
-        screen_y = start_y - self.y * cell_size - cell_size // 2
+
+        # Convert grid-based X and Y coordinates to screen X and Y coordinate
+        screen_x = start_x + x * cell_size + cell_size // 2
+        screen_y = start_y - y * cell_size - cell_size // 2
 
         self.turtle.goto(screen_x, screen_y)  # Move turtle using goto (#49)
 
@@ -447,7 +470,7 @@ class MazeGUI:
         welcome = tk.Tk()
         welcome.title("Welcome to Turtle Escape")
         welcome.geometry("350x250")
-        welcome.resizable(False, False)
+        welcome.resizable(False, False) # Disable window resizing for the welcome window (both horizontally and vertically)
 
         label = tk.Label(welcome, text="🐢 Welcome to Turtle Escape! 🐢", font=("Arial", 14))
         label.pack(pady=15)
@@ -496,7 +519,7 @@ class MazeGUI:
         self.window = tk.Tk()                                   #I.A.1
         self.window.title("Turtle Escape - Select Difficulty")  #I.A.2
         self.window.geometry("300x200")
-        self.window.resizable(False, False)
+        self.window.resizable(False, False) # Disable window resizing for the welcome window (both horizontally and vertically)
 
         label = tk.Label(self.window, text= "Choose a difficulty level", font= ("Arial", 14))   #I.A.3
         label.pack(pady=20)
@@ -512,12 +535,20 @@ class MazeGUI:
         self.window.mainloop()  #I.C.1/2
 
     def show_instructions_window(self):
-        instructions_window = tk.Tk()
-        instructions_window.title("How to Play")
-        instructions_window.geometry("550x550")
-        instructions_window.resizable(False, False)
-        instructions_window.configure(bg="#f0f8ff")
+        """
+        Creates and displays a window with detailed instructions
+        on how to play the turtle maze game.
+        Includes information about the goal, controls, rules, and winning conditions.
+        """
 
+        # Create a new window for instructions
+        instructions_window = tk.Tk()
+        instructions_window.title("How to Play") # Set the window title
+        instructions_window.geometry("550x550") # Set window size
+        instructions_window.resizable(False, False)  # Prevent window resizing
+        instructions_window.configure(bg="#f0f8ff") # Set background color
+
+        # Add a title label to the window
         title_label = tk.Label(
             instructions_window,
             text="📋 How to Play",
@@ -527,6 +558,7 @@ class MazeGUI:
         )
         title_label.pack(pady=15)
 
+        # Define the instructions text to explain the game
         instructions_text = (
             "🎯 Goal:\n"
             "        Help the turtle reach the red square (the goal) as fast as possible!\n\n"
@@ -545,6 +577,7 @@ class MazeGUI:
             "        When you reach the goal, your time will be displayed."
         )
 
+        # Add a label to display the instructions text
         text_label = tk.Label(
             instructions_window,
             text=instructions_text,
@@ -556,11 +589,12 @@ class MazeGUI:
         )
         text_label.pack(pady=10, padx=30, anchor="w")
 
+        # Add a button to close the instructions window and start the game
         ok_button = tk.Button(
             instructions_window,
             text="Got it! Let's Play!",
             width=20,
-            command=instructions_window.destroy,
+            command=instructions_window.destroy, # Close the instructions window
             bg="#4682b4",
             fg="white",
             activebackground="#5f9ea0",
@@ -568,6 +602,7 @@ class MazeGUI:
         )
         ok_button.pack(pady=20)
 
+        # Start the Tkinter event loop for the instructions window
         instructions_window.mainloop()
 
     def show_maximize_tip(self):
@@ -576,9 +611,10 @@ class MazeGUI:
         """
         tip_window = tk.Tk()
         tip_window.title("Tip for Best Experience")
-        tip_window.geometry("400x150")
-        tip_window.resizable(False, False)
+        tip_window.geometry("400x150") # Set the size of the tip window
+        tip_window.resizable(False, False) # Prevent resizing
 
+        # Add a label with the maximize tip message
         tip_label = tk.Label(
             tip_window,
             text="📢 For the best game experience,\nplease maximize your Turtle window before playing!",
@@ -587,9 +623,11 @@ class MazeGUI:
         )
         tip_label.pack(pady=20)
 
+        # Add an OK button to close the tip window
         ok_button = tk.Button(tip_window, text="OK", width=15, command=tip_window.destroy)
         ok_button.pack(pady=10)
 
+        # Start the Tkinter event loop for the tip window
         tip_window.mainloop()
 
 

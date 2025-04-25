@@ -39,11 +39,11 @@
 https://sites.google.com/site/advancedpythonprogramming/recursion/exploring-a-maze, 
 https://www.w3schools.com/python/ref_func_enumerate.asp, 
 https://www.tutorialspoint.com/python_data_structure/python_binary_tree.htm, 
-https://docs.python.org/3/library/importlib.html
-https://www.geeksforgeeks.org/python-gui-tkinter/
-https://docs.python.org/3/library/time.html
-https://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap
-https://www.programiz.com/python-programming/time
+https://docs.python.org/3/library/importlib.html, 
+https://www.geeksforgeeks.org/python-gui-tkinter/, 
+https://docs.python.org/3/library/time.html, 
+https://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap, 
+https://www.programiz.com/python-programming/time, 
 https://stackoverflow.com/questions/24758326/how-to-resize-a-turtle-screen-window-in-python
 
 ---
@@ -80,34 +80,59 @@ Indicate what percentage of the project you have left to complete and how confid
     including maze generation for different difficulty levels, keyboard navigation, the timer, pop-up messages,
     and GUI windows are all working well. The overall structure feels stable, and we don't have any major ideas
     left to add at this point.
+    
     The only main task remaining is completing and polishing the test suite to make sure the game runs smoothly
     across all levels and that the user experience feels consistent.
+    
     At this stage, our biggest focus is making sure everything works as expected and cleaning up any small issues.
     We feel good about the progress we've made and are not worried about running out of time because the game works
     as we have had friends play it and they navigated through it smoothly.
+    
     Strategies to finish successfully:
-      Focus on finishing the test suite and make sure it covers the main functions and edge cases.
-      Do a final round of testing together and check how the game runs from start to finish.
-      Make sure the code is well-commented and easy to read.
-      Check for any last small bugs, especially in movement logic, timer updates, and pop-up behavior.
+      1. Focus on finishing the test suite and make sure it covers the main functions and edge cases.
+      2. Do a final round of testing together and check how the game runs from start to finish.
+      3. Make sure the code is well-commented and easy to read.
+      4. Check for any last small bugs, especially in movement logic, timer updates, and pop-up behavior.
 ```
 
 ---
 
 ## Milestone 4: Final Code, Presentation, Demo
 
-### ❗User Instructions
+### User Instructions
 
 In a paragraph, explain how to use your program. Assume the user is starting just after they hit the "Run" button 
 in PyCharm. 
+```
+  After clicking "Run" in PyCharm, a window will appear welcoming the user to Turtle Escape game. The user should click the "Start Game" button to continue. 
+Then, an instructions window will pop up, explaining the game’s goal and how to use the arrow keys to control the turtle. 
+After reading the instructions, the user can click the "Got it! Let's Play!" button.
+Another small window will recommend maximizing the screen for a better experience — press "OK" to dismiss it.
+  Next, the user will be asked to choose a difficulty (Easy, Medium, or Hard) by clicking one of the buttons. 
+After choosing, a new window confirms user's selection.
+Finally, the maze will appear, and the turtle will be ready at the starting point. The user can use the arrow keys to move: '↑' to move up, '↓' to move down, '>' to move forward, '<' to move backward.
+As the turtle moves, a timer starts automatically. The goal is to reach the red square as fast as possible without hitting walls (black squares). 
+When the turtle reach the goal, a popup will show the user's final time and ask if they want to play again or exit.
 
-### ❗Errors and Constraints
+
+```
+
+### Errors and Constraints
 
 Every program has bugs or features that had to be scrapped for time. These bugs should be tracked in the issue queue. 
 You should already have a few items in here from the prior weeks. Create a new issue for any undocumented errors and 
 deficiencies that remain in your code. Bugs found that aren't acknowledged in the queue will be penalized.
 
-### ❗Peer Evaluation
+```
+  Our game contains some bugs that will require additional attention and development in the future.
+  
+  1. Multiple Tk() windows created improperly:
+     Every popup window (welcome, instructions, maximize tip, end popup) is created using tk.Tk().
+     
+  2. 
+```
+
+### Peer Evaluation
 
 It is important that all members of your team contribute equitably. The peer evaluation is your chance to either 
 a) celebrate the great work you all did together as an effective team, or b) indicate to the instructor if a member of
