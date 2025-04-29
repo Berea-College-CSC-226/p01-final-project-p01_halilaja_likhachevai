@@ -139,7 +139,7 @@ a) celebrate the great work you all did together as an effective team, or b) ind
 your team did not contribute their fair share. Grades will be adjusted for any team member who is evaluated poorly. Your
 commit history will be used as evidence, so make sure you are using git effectively!
 
-### ❗Reflection
+### Reflection
 
 Each partner should write three to four well-written paragraphs address the following (at a minimum):
 - Why did you select the project that you did?
@@ -150,7 +150,25 @@ Each partner should write three to four well-written paragraphs address the foll
 - How well did you work with your partner? What made it go well? What made it challenging?
 
 ```
-    Partner 1: **Replace this text with your reflection
+    Partner 1: Iuliia Likhacheva
+    
+    We decided to create the maze Turtle game project because we wanted to combine the technical skills we learned in class with the opportunity to be creative.
+  We liked the idea of making a game where the user could control a turtle, move through a maze, and solve it. This project also gave us a chance to apply what we had studied, 
+  like using classes, writing functions and methods, working with Turtle graphics, and using Tkinter to create a graphical user interface.
+
+    Our final project turned out quite similar to what we originally planned. At first, we just wanted to build a simple maze and a player that could move through it. 
+  But as we worked on it, we added more interesting features like a timer, different difficulty levels, and a restart button. Some ideas we had at the beginning, 
+  like adding sound effects, didn’t make it into the final version because we ran out of time. Still, the main idea and the way the game plays stayed the same.
+
+    We learned a lot during this project. We realized how important planning is, but also how important it is to stay flexible when new problems come up. 
+  We got much better at debugging and thinking about how different parts of the program connect with each other. The hardest part was making sure everything reset correctly 
+  when the player wanted to start a new game — it took a lot of testing and fixing small mistakes.
+
+    We worked really well together as partners. We divided the work fairly and helped each other when needed, also each partner was responsible for several subtasks in the issue queue. 
+  It helped that we communicated a lot and regularly reviewed each other’s code. The only real challenge was that our coding styles were sometimes a little different, but we handled it well 
+  by being patient and keeping the project organized. Overall, it was a great team effort!
+
+
 ```
 
 ```
