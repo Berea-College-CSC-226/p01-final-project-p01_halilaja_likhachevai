@@ -13,7 +13,6 @@
 
 from final_project import *
 from inspect import getframeinfo, stack
-import math
 import time
 
 
@@ -34,12 +33,50 @@ def unittest(did_pass):
 def test_navigator():
     print("\n Running tests for Navigator class...")
 
+    #Dummy Turtle and Screen Classes to Disable GUI
+    class DummyTurtle:
+        def __init__(self):
+            self._heading = 0
+        def shape(self, s): pass
+        def color(self, c): pass
+        def penup(self): pass
+        def setheading(self, h): self._heading = h
+        def heading(self): return self._heading
+        def goto(self, x, y): pass
+        def showturtle(self): pass
+        def hideturtle(self): pass
+        def clear(self): pass
+        def write(self, *args, **kwargs): pass
+
+    class DummyScreen:
+        def ontimer(self, func, t): pass
+        def bye(self): pass
+        def _incrementudc(self): pass
+        def _update(self): pass
+
+    #mock Navigator to Use Dummy GUI
+    class MockNavigator(Navigator):
+        def __init__(self, maze, x=0, y=0, direction='N'):
+            self.x = x
+            self.y = y
+            self.direction = direction
+            self.maze = maze
+            self.timer_start = None
+            self.is_timer_running = False
+            self.turtle = DummyTurtle()
+            self.timer_writer = DummyTurtle()
+            self.screen = DummyScreen()
+            self.set_heading()
+        def update_timer(self): pass
+        def update_position(self): pass
+        def show_end_popup(self, elapsed): pass
+
     #setup a simple maze
     grid = [['S', ' '], ['#', 'G']]
     maze = Maze(grid)
-    navigator = Navigator(maze, x=0, y=0) #start at (0, 0) which is S
+    navigator = MockNavigator(maze, x=0, y=0)
 
-    #test initial position and direction
+    #test initial state
     unittest(navigator.x == 0 and navigator.y == 0)
     unittest(navigator.direction == 'N')
 
@@ -52,50 +89,113 @@ def test_navigator():
     #test at_goal() - should be False at start
     unittest(not navigator.at_goal())
 
-    #manually move to goal position and test at_goal()
+    #move to goal position manually and test
     gx, gy = maze.get_goal()
     navigator.x = gx
     navigator.y = gy
     unittest(navigator.at_goal())
 
-    #test move_forward() logic without GUI by mocking maze layout
+    #test move_forward() logic
     test_maze = Maze([['S', ' '], ['#', 'G']])
-    nav = Navigator(test_maze, x=0, y=0, direction='E')  #facing right, should move to (1, 0)
+    nav = MockNavigator(test_maze, x=0, y=0, direction='E')
     nav.move_forward()
     unittest((nav.x, nav.y) == (1, 0))
 
-    #test invalid move (into wall)
-    nav.direction = 'S'  #facing down, should hit wall at (1, 1)
+    #test invalid move into wall
+    nav.direction = 'S'  # facing wall
     prev_x, prev_y = nav.x, nav.y
     nav.move_forward()
-    unittest((nav.x, nav.y) == (prev_x, prev_y))  #shouldn't change
+    unittest((nav.x, nav.y) == (prev_x, prev_y))
+
+    #test move_up()
+    nav = MockNavigator(test_maze, x=1, y=1)
+    nav.move_up()
+    unittest((nav.x, nav.y) == (1, 0))
+
+    #test move_down()
+    nav = MockNavigator(test_maze, x=1, y=0)
+    nav.move_down()
+    unittest((nav.x, nav.y) == (1, 1))
+
+    #test turn_left()
+    nav = MockNavigator(test_maze, x=1, y=0)
+    nav.turn_left()
+    unittest(nav.direction == 'W')
+
+    #test turn_right()
+    nav = MockNavigator(test_maze, x=0, y=0)
+    nav.turn_right()
+    unittest(nav.direction == 'E')
+
+    #test set_heading()
+    nav = MockNavigator(test_maze, x=0, y=0)
+    nav.direction = 'S'
+    nav.set_heading()
+    unittest(nav.turtle.heading() == 270)
+
+    #test go_to_start()
+    nav = MockNavigator(test_maze, x=1, y=1)
+    nav.go_to_start()
+    unittest(nav.turtle is not None)  # dummy object still exists
+
+    #test start_timer()
+    nav = MockNavigator(test_maze)
+    nav.start_timer()
+    time.sleep(0.05)
+    unittest(nav.get_time_elapsed() >= 0.05)
 
     print("Navigator tests complete.")
+
 
 def test_maze():
     print("\n Running tests for Maze class...")
 
-    #test basic path check
-    m = Maze([['S', ' '], ['#', 'G']])
-    unittest(m.is_path(0, 0))  #'S' is valid path
-    unittest(m.is_path(1, 0))  #space is valid
-    unittest(not m.is_path(0, 1))  #wall is not path
-    unittest(not m.is_path(2, 2))  #out of bonds
+    #test default maze initialization
+    m_default = Maze()
+    unittest(m_default.grid == [[0, 1], [1, 0]])
+    unittest(m_default.start == (0, 0))
+    unittest(m_default.goal == (1, 1))
 
-    #test get start and goal position
+    #test custom maze with known values
+    grid = [['S', ' '], ['#', 'G']]
+    m = Maze(grid)
+    unittest(m.is_path(0, 0))  # 'S' is valid
+    unittest(m.is_path(1, 0))  # space is valid
+    unittest(not m.is_path(0, 1))  # wall is not valid
+    unittest(not m.is_path(2, 2))  # out-of-bounds
+
+    #test get_start() and get_goal()
     unittest(m.get_start() == (0, 0))
     unittest(m.get_goal() == (1, 1))
 
-    #test generate maze with known size
+    #test get_start() returns None if no 'S'
+    m_no_start = Maze([['#', ' '], [' ', 'G']])
+    unittest(m_no_start.get_start() is None)
+
+    #test get_goal() returns None if no 'G'
+    m_no_goal = Maze([['S', ' '], [' ', '#']])
+    unittest(m_no_goal.get_goal() is None)
+
+    #test generate_maze with known difficulty and grid constraints
     m.generate_maze("Easy")
     width = len(m.grid[0])
     height = len(m.grid)
     unittest(width == 10)
     unittest(height == 10)
-    unittest(m.grid[m.get_start()[1]][m.get_start()[0]] == 'S')
-    unittest(m.grid[m.get_goal()[1]][m.get_goal()[0]] == 'G')
+
+    #check that start and goal are marked properly
+    sx, sy = m.get_start()
+    gx, gy = m.get_goal()
+    unittest(m.grid[sy][sx] == 'S')
+    unittest(m.grid[gy][gx] == 'G')
+    unittest(m.difficulty == "Easy")
+
+    #check that paths are carved correctly (some non-wall cells exist)
+    path_cells = sum(row.count(' ') for row in m.grid)
+    unittest(path_cells > 0)
 
     print("Maze tests complete.")
+
 
 def test_maze_drawer():
     print("\n Running tests for MazeDrawer class...")
@@ -104,37 +204,45 @@ def test_maze_drawer():
     maze = Maze([['S', ' '], ['#', 'G']])
     drawer = MazeDrawer(maze)
 
-    #test object setup
-    unittest(drawer.cell_size == 20)
+    #test initial state
     unittest(drawer.maze == maze)
+    unittest(drawer.cell_size == 20)
+    unittest(drawer.turtle is None)
 
-    #can't test draw_maze() directly because it uses Turtle graphics
-    print("Skipping draw_maze() and update_position() - requires Turtle screen.")
+    #we can't test draw_maze() and update_position() directly because they rely on turtle GUI
+    print("Skipping draw_maze() and update_position() - require Turtle screen.")
 
     print("MazeDrawer tests complete.")
+
 
 def test_maze_gui():
     print("\n Running tests for MazeGUI class...")
 
     gui = MazeGUI()
 
-    #initial state checks
+    #test default constructor state
     unittest(gui.window is None)
     unittest(gui.difficulty is None)
     unittest(gui.timer is None)
     unittest(gui.navigator is None)
     unittest(gui.maze is None)
 
-    #GUI methods like show_welcome_window, select_difficulty, and run
-    #involve real GUI interaction and we can not test them
-    print("Skipping show_welcome_Window(), select_difficulty(), and run() - GUI dependent.")
+    #test set_difficulty sets the correct value (simulate without GUI)
+    #we'll override the method to avoid calling Tkinter
+    gui.window = type('DummyWindow', (), {'destroy': lambda self: None})()  # Fake .destroy()
+    gui.set_difficulty("Medium")
+    unittest(gui.difficulty == "Medium")
+
+    #GUI methods (cannot test without a display loop)
+    print("Skipping GUI-dependent methods: show_welcome_window, select_difficulty, show_instructions_window, show_maximize_tip, and run")
 
     print("MazeGUI tests complete.")
 
+
 def run_all_tests():
     print("\n Starting full test suite. ")
-    test_maze()
     test_navigator()
+    test_maze()
     test_maze_drawer()
     test_maze_gui()
     print("\n All tests completed successfully.")

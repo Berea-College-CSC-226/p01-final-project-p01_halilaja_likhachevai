@@ -129,7 +129,23 @@ deficiencies that remain in your code. Bugs found that aren't acknowledged in th
   1. Multiple Tk() windows created improperly:
      Every popup window (welcome, instructions, maximize tip, end popup) is created using tk.Tk().
      
-  2. 
+  2. Turtle window sometimes stays open after exit:
+     When exiting the game from the popup after completing the maze, the Turtle graphics window sometimes
+     stayed open instead of closing cleanly when we initally started testing the code. 
+     
+  3. Sometimes some tests in the test suite fail:
+     The test suite was helpful for checking core logic during development, but occasionally tests fail 
+     due to edge cases or maze configuration differences. These issues are not fully debugged and would 
+     need more consistent grid setups or mock data to resolve reliably.
+     
+  4. Grid redraw is not optimized:
+     The entire maze is redrawn using `turtle.clearscreen()` every time the game restarts. While this is 
+     acceptable for small grids, it can cause flickering or lag for larger ones (e.g., "Hard" level).
+
+  5. Timer doesn't pause on invalid moves:
+     If a player keeps hitting walls, the timer continues running even though no real progress is made.
+     While technically this isn't a bug, it could be considered an unfair penalty and worth revisiting if
+     we decide to refine how time scoring works.
 ```
 
 ### Peer Evaluation
@@ -172,7 +188,23 @@ Each partner should write three to four well-written paragraphs address the foll
 ```
 
 ```
-    Partner 2: **Replace this text with your reflection
-```
-
+    Partner 2: Arbjosa Halilaj
+    
+  We chose the maze Turtle game project because it allowed us to blend creativity with core programming skills we learned in class. From 
+  From the start, I was excited about building something interactive and visual. The idea of designing a maze that users could solve with
+  keyboard controls seemed like a fun challenge and a great way to apply our understanding of object-oriented design, Turtle graphics, and
+  GUI development with Tkinter. We also liked that it would be visually engaging for a final demo.
+  Our final version matched our initial plan in most ways, though it grew more complex as we built it. We started with a simple concept,
+  generate a maze and let the turtle move through it, but we gradually added more features like the timer, goal marker, play again functionality,
+  and difficulty levels. While we didn't manage to add every feature we originally brainstormed, like music or a scoring system, the 
+  essential gameplay and user experience turned out how we imagined. We also stayed true to our top-down design approach and followed our
+  CRC cards and task breakdown closely.
+  This project helped me understand how big programs come together from smaller components. I learned how useful classes are for organizing
+  code, and I also practiced breaking down large problems into manageable parts. One of the most difficult parts was coordinating the
+  Turtle window with the Tkinter interface and making sure the maze reset cleanly without leftover graphics or bugs. We had to troubleshoot
+  a lot, but those moments helped me improve my debugging and testing skills.
+  Working with my partner went really well. We both contributed equally and stayed on top of our tasks. What helped the most was our
+  communication, we used an issue tracker to divide up the work and kept each other updated. I appreciated that we were both open to
+  feedback and took time to help each other solve problems. Sometimes our coding habits or naming styles differed, but we found common
+  ground by reviewing and adjusting our code together. I'm proud of how we collaborated and finished a polished, playable game!
 ---

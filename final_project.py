@@ -14,7 +14,6 @@ import time
 import turtle
 import tkinter as tk
 import random
-import math
 import importlib
 
 
@@ -565,10 +564,10 @@ class MazeGUI:
             "🟩 Starting Point:\n"
             "        The turtle starts at the green square.\n\n"
             "🎮 Controls (Arrow Keys):\n"
-            "        ⬆️  Up Arrow       = Move up\n"
-            "        ⬇️  Down Arrow     = Move down\n"
-            "        ⬅️  Left Arrow     = Turn left\n"
-            "        ➡️  Right Arrow    = Turn right\n\n"
+            "        ↑  Up Arrow       = Move up\n"
+            "        ↓  Down Arrow     = Move down\n"
+            "        ←  Left Arrow     = Turn left\n"
+            "        →  Right Arrow    = Turn right\n\n"
             "🚫 Rules:\n"
             "        You cannot go through walls (black squares).\n\n"
             "⏱️ Timer:\n"
@@ -629,6 +628,7 @@ class MazeGUI:
 
         # Start the Tkinter event loop for the tip window
         tip_window.mainloop()
+
 
 
     def run(self):
