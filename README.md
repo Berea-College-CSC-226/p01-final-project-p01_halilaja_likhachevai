@@ -207,4 +207,4 @@ Each partner should write three to four well-written paragraphs address the foll
   communication, we used an issue tracker to divide up the work and kept each other updated. I appreciated that we were both open to
   feedback and took time to help each other solve problems. Sometimes our coding habits or naming styles differed, but we found common
   ground by reviewing and adjusting our code together. I'm proud of how we collaborated and finished a polished, playable game!
----
+```
